@@ -43,15 +43,28 @@ public class MyGdxGame extends ApplicationAdapter {
         batch.begin();
         drawBackground();
         playerSpaceship.moveController();
-        batch.draw(playerSpaceship.playerSprite, playerSpaceship.getSpriteXPosition(), playerSpaceship.getSpriteYPosition(), 64f, 64f);
+        batch.draw(playerSpaceship.playerSprite, playerSpaceship.getSpriteXPosition(), playerSpaceship.getSpriteYPosition(),
+                64f, 64f);
+        shooting(batch);
+        batch.end();
+    }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+    }
+
+    private void shooting (SpriteBatch batch){
         int counter = 0;
         while(counter < playerSpaceship.bullets.size())
         {
             Bullet currentBullet = playerSpaceship.bullets.get(counter);
             currentBullet.update();
-            if(currentBullet.bulletLocation.x > -50 && currentBullet.bulletLocation.x < Gdx.graphics.getWidth() + 50 && currentBullet.bulletLocation.y > -50 && currentBullet.bulletLocation.y < Gdx.graphics.getHeight() + 50)
+            if(currentBullet.bulletLocation.x > -50 && currentBullet.bulletLocation.x < Gdx.graphics.getWidth() + 50
+                    && currentBullet.bulletLocation.y > -50 && currentBullet.bulletLocation.y < Gdx.graphics.getHeight() + 50)
             {
-                batch.draw(currentBullet.getBulletSprite(), currentBullet.bulletLocation.x, currentBullet.bulletLocation.y, 32,16);
+                batch.draw(currentBullet.getBulletSprite(), currentBullet.bulletLocation.x, currentBullet.bulletLocation.y,
+                        32,16);
             }
             else
             {
@@ -65,11 +78,5 @@ public class MyGdxGame extends ApplicationAdapter {
             counter++;
         }
 
-        batch.end();
-    }
-
-    @Override
-    public void dispose() {
-        batch.dispose();
     }
 }
