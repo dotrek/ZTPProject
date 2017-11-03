@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.kotcrab.vis.ui.widget.VisLabel;
 
 
 public class MyGdxGame extends ApplicationAdapter {
@@ -16,19 +18,23 @@ public class MyGdxGame extends ApplicationAdapter {
     PlayerSpaceship playerSpaceship;
     Sprite backgroundSprite;
     Vector2 shipLocation;
-
+    Stage stage;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        img = new Texture("spaceship.png");
-
-        background = new Texture("background.jpg");
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+        loadAssets();
         backgroundSprite = new Sprite(background);
         backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+
         playerSpaceship = new PlayerSpaceship(new Sprite(img));
-        shipLocation = new Vector2(playerSpaceship.getSpriteXPosition(), playerSpaceship.getSpriteYPosition());
+        shipLocation = playerSpaceship.getPosition();
+
+        stage.addActor(playerSpaceship);
+
     }
 
     private void drawBackground() {
@@ -37,16 +43,15 @@ public class MyGdxGame extends ApplicationAdapter {
 
     @Override
     public void render() {
-        System.out.println(playerSpaceship.getSpriteXPosition() + "\t" + playerSpaceship.getSpriteYPosition());
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         drawBackground();
-        playerSpaceship.moveController();
-        batch.draw(playerSpaceship.playerSprite, playerSpaceship.getSpriteXPosition(), playerSpaceship.getSpriteYPosition(),
-                64f, 64f);
-        shooting(batch);
         batch.end();
+        stage.act();
+        playerSpaceship.moveController();
+        shooting();
+        stage.draw();
     }
 
     @Override
@@ -54,29 +59,30 @@ public class MyGdxGame extends ApplicationAdapter {
         batch.dispose();
     }
 
-    private void shooting (SpriteBatch batch){
+    private void shooting() {
         int counter = 0;
-        while(counter < playerSpaceship.bullets.size())
-        {
+        while (counter < playerSpaceship.bullets.size()) {
             Bullet currentBullet = playerSpaceship.bullets.get(counter);
             currentBullet.update();
-            if(currentBullet.bulletLocation.x > -50 && currentBullet.bulletLocation.x < Gdx.graphics.getWidth() + 50
-                    && currentBullet.bulletLocation.y > -50 && currentBullet.bulletLocation.y < Gdx.graphics.getHeight() + 50)
-            {
-                batch.draw(currentBullet.getBulletSprite(), currentBullet.bulletLocation.x, currentBullet.bulletLocation.y,
-                        32,16);
-            }
-            else
-            {
+            if (currentBullet.bulletLocation.x > -50 && currentBullet.bulletLocation.x < Gdx.graphics.getWidth() + 50
+                    && currentBullet.bulletLocation.y > -50 && currentBullet.bulletLocation.y < Gdx.graphics
+                    .getHeight() + 50) {
+                stage.addActor(currentBullet);
+            } else {
                 playerSpaceship.bullets.remove(counter);
-                if(playerSpaceship.bullets.size() > 0)
-                {
+                if (playerSpaceship.bullets.size() > 0) {
                     counter--;
                 }
             }
 
             counter++;
         }
+
+    }
+
+    private void loadAssets() {
+        img = new Texture("spaceship.png");
+        background = new Texture("background.jpg");
 
     }
 }
