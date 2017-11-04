@@ -1,14 +1,12 @@
 package com.libgdx.project;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.ArrayList;
 
@@ -17,12 +15,14 @@ import java.util.ArrayList;
  */
 
 public class PlayerSpaceship extends Actor {
-    private static final float ACCELERATION_X = 50f;
-    private static final float ACCELERATION_Y = 50f;
-    private static final float MAX_VELOCITY = 50f;
+    static final float ACCELERATION_X = 50f;
+    static final float ACCELERATION_Y = 50f;
+    private static final float MAX_VELOCITY = 100f;
     private static float speed = 10;
-    private Vector2 velocity, acceleration, position;
-    private static final Vector2 bulletVelocity = new Vector2(20f, 0f);
+    private Vector2 velocity;
+    Vector2 acceleration;
+    Vector2 position;
+    static final Vector2 bulletVelocity = new Vector2(20f, 0f);
     public Sprite playerSprite;
 
     private int health;
@@ -33,11 +33,11 @@ public class PlayerSpaceship extends Actor {
         return position;
     }
 
-    private enum MoveStateX {
+    public enum MoveStateX {
         LEFT, RIGHT, STOP
     }
 
-    private enum MoveStateY {
+    public enum MoveStateY {
         UP, DOWN, STOP
     }
 
@@ -67,41 +67,6 @@ public class PlayerSpaceship extends Actor {
         return speed;
     }
 
-    //TODO: Change this method to input processor type
-    public void moveController() {
-        if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-            movestate = MoveStateX.STOP;
-            moveStateY = MoveStateY.STOP;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            moveStateY = MoveStateY.UP;
-            acceleration.set(0, ACCELERATION_Y);
-
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            moveStateY = MoveStateY.DOWN;
-            acceleration.set(0, -ACCELERATION_Y);
-
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            movestate = MoveStateX.LEFT;
-            acceleration.set(-ACCELERATION_X, 0);
-
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            movestate = MoveStateX.RIGHT;
-            acceleration.set(ACCELERATION_X, 0);
-        }
-
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            Bullet bullet = new Bullet(new Vector2(position.x, position.y + playerSprite
-                    .getHeight() / 2f),
-                    bulletVelocity);
-            bullets.add(bullet);
-            sound.play();
-        }
-    }
 
     private void checkBorders() {
         if (position.x > Gdx.graphics.getWidth() - playerSprite.getWidth()) {
@@ -121,30 +86,34 @@ public class PlayerSpaceship extends Actor {
     public void update(float delta) {
         checkBorders();
         if (movestate == MoveStateX.LEFT || movestate == MoveStateX.RIGHT) {
-            velocity.add(acceleration.cpy().scl(delta));
-            position.add(velocity.cpy().scl(delta));
+            if (velocity.x < MAX_VELOCITY)
+                velocity.add(acceleration.cpy().scl(delta));
         }
         if (moveStateY == MoveStateY.UP || moveStateY == MoveStateY.DOWN) {
-            velocity.add(acceleration.cpy().scl(delta));
-            position.add(velocity.cpy().scl(delta));
+            if (velocity.y < MAX_VELOCITY)
+                velocity.add(acceleration.cpy().scl(delta));
         }
         if (moveStateY == MoveStateY.STOP && velocity.y > 0) {
-            velocity.y += -ACCELERATION_Y * delta;
+            if (velocity.y > -MAX_VELOCITY)
+                velocity.y += -ACCELERATION_Y * delta;
         }
         if (moveStateY == MoveStateY.STOP && velocity.y < 0) {
-            velocity.y += ACCELERATION_Y * delta;
+            if (velocity.y < MAX_VELOCITY)
+                velocity.y += ACCELERATION_Y * delta;
         }
         if (movestate == MoveStateX.STOP && velocity.x > 0) {
-            velocity.x += -ACCELERATION_X * delta;
+            if (velocity.x > -MAX_VELOCITY)
+                velocity.x += -ACCELERATION_X * delta;
         }
         if (movestate == MoveStateX.STOP && velocity.x < 0) {
-            velocity.x += ACCELERATION_X * delta;
+            if (velocity.x < MAX_VELOCITY)
+                velocity.x += ACCELERATION_X * delta;
         }
+        position.add(velocity.cpy().scl(delta));
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        moveController();
         update(Gdx.graphics.getDeltaTime());
         batch.draw(playerSprite, position.x, position.y, playerSprite.getWidth(), playerSprite.getHeight());
     }

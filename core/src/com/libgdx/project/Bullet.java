@@ -14,6 +14,7 @@ public class Bullet extends Actor {
     private Vector2 bulletVelocity;
     private static Texture bulletTexture;
     private static Sprite bulletSprite;
+    private int damage;
 
 
     public Bullet(Vector2 sentLocation, Vector2 sentVelocity) {
@@ -26,8 +27,8 @@ public class Bullet extends Actor {
     }
 
     public void update() {
-        bulletLocation.x += bulletVelocity.x;
-        bulletLocation.y += bulletVelocity.y;
+        bulletLocation.x += getBulletVelocity().x;
+        bulletLocation.y += getBulletVelocity().y;
     }
 
 
@@ -48,5 +49,13 @@ public class Bullet extends Actor {
         update();
         bulletSprite.setPosition(bulletLocation.x, bulletLocation.y);
         this.bulletSprite.draw(batch, parentAlpha);
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 }

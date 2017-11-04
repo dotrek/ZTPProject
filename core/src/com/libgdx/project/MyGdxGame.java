@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.kotcrab.vis.ui.widget.VisLabel;
 
 
 public class MyGdxGame extends ApplicationAdapter {
@@ -29,7 +28,6 @@ public class MyGdxGame extends ApplicationAdapter {
         backgroundSprite = new Sprite(background);
         backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-
         playerSpaceship = new PlayerSpaceship(new Sprite(img));
         shipLocation = playerSpaceship.getPosition();
 
@@ -45,12 +43,14 @@ public class MyGdxGame extends ApplicationAdapter {
     public void render() {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.input.setInputProcessor(new OURInputProcessor(playerSpaceship));
         batch.begin();
         drawBackground();
         batch.end();
         stage.act();
-        playerSpaceship.moveController();
+
         shooting();
+        playerSpaceship.update(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
 
