@@ -3,31 +3,26 @@ package com.libgdx.project;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
-import java.util.ArrayList;
 
 /**
  * Created by dotre on 24.10.2017.
  */
 
-public class PlayerSpaceship extends Actor {
+public class PlayerSpaceship extends Spaceship {
     static final float ACCELERATION_X = 50f;
     static final float ACCELERATION_Y = 50f;
     private static final float MAX_VELOCITY = 100f;
-    private static float speed = 10;
+    private static final Texture texture = new Texture("spaceship.png");
+
     private Vector2 velocity;
     Vector2 acceleration;
     Vector2 position;
-    static final Vector2 bulletVelocity = new Vector2(20f, 0f);
-    public Sprite playerSprite;
 
-    private int health;
     Sound sound;
-    ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
     public Vector2 getPosition() {
         return position;
@@ -44,33 +39,22 @@ public class PlayerSpaceship extends Actor {
     MoveStateX movestate = MoveStateX.STOP;
     MoveStateY moveStateY = MoveStateY.STOP;
 
-    PlayerSpaceship(Sprite playerSprite) {
-        this.playerSprite = playerSprite;
+    PlayerSpaceship() {
+        this.spaceshipSprite = new Sprite(texture);
+        this.spaceshipSprite.setSize(64f, 64f);
         health = 10;
+        sound = Gdx.audio.newSound(new FileHandle("ciu.mp3"));
+
         velocity = new Vector2(0, 0);
         acceleration = new Vector2(0, 0);
-        position = new Vector2(playerSprite.getX(), playerSprite.getY());
+        position = new Vector2(spaceshipSprite.getX(), spaceshipSprite.getY());
 
-        this.playerSprite.setSize(64f, 64f);
-        sound = Gdx.audio.newSound(new FileHandle("ciu.mp3"));
-    }
-
-    public void addHealth(int healthAdded) {
-        this.health += healthAdded;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public static float getSpeed() {
-        return speed;
     }
 
 
     private void checkBorders() {
-        if (position.x > Gdx.graphics.getWidth() - playerSprite.getWidth()) {
-            position.x = Gdx.graphics.getWidth() - playerSprite.getWidth();
+        if (position.x > Gdx.graphics.getWidth() - spaceshipSprite.getWidth()) {
+            position.x = Gdx.graphics.getWidth() - spaceshipSprite.getWidth();
         }
         if (position.x < 0) {
             position.x = 0;
@@ -78,8 +62,8 @@ public class PlayerSpaceship extends Actor {
         if (position.y < 0) {
             position.y = 0;
         }
-        if (position.y > Gdx.graphics.getHeight() - playerSprite.getHeight()) {
-            position.y = Gdx.graphics.getHeight() - playerSprite.getHeight();
+        if (position.y > Gdx.graphics.getHeight() - spaceshipSprite.getHeight()) {
+            position.y = Gdx.graphics.getHeight() - spaceshipSprite.getHeight();
         }
     }
 
@@ -115,7 +99,7 @@ public class PlayerSpaceship extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         update(Gdx.graphics.getDeltaTime());
-        batch.draw(playerSprite, position.x, position.y, playerSprite.getWidth(), playerSprite.getHeight());
+        batch.draw(spaceshipSprite, position.x, position.y, spaceshipSprite.getWidth(), spaceshipSprite.getHeight());
     }
 
 }

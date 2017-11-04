@@ -42,7 +42,7 @@ public class OURInputProcessor implements InputProcessor {
 
 
         if (keycode == Input.Keys.SPACE) {
-            Bullet bullet = new Bullet(new Vector2(spaceship.position.x, spaceship.position.y + spaceship.playerSprite
+            Bullet bullet = new Bullet(new Vector2(spaceship.position.x, spaceship.position.y + spaceship.spaceshipSprite
                     .getHeight() / 2f),
                     spaceship.bulletVelocity);
             spaceship.bullets.add(bullet);

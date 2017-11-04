@@ -28,7 +28,7 @@ public class MyGdxGame extends ApplicationAdapter {
         backgroundSprite = new Sprite(background);
         backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        playerSpaceship = new PlayerSpaceship(new Sprite(img));
+        playerSpaceship = new PlayerSpaceship();
         shipLocation = playerSpaceship.getPosition();
 
         stage.addActor(playerSpaceship);
