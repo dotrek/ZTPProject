@@ -15,6 +15,7 @@ public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
     Texture img, background;
     PlayerSpaceship playerSpaceship;
+    Enemy[] enemies;
     Sprite backgroundSprite;
     Vector2 shipLocation;
     Stage stage;
@@ -28,10 +29,13 @@ public class MyGdxGame extends ApplicationAdapter {
         backgroundSprite = new Sprite(background);
         backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        playerSpaceship = new PlayerSpaceship();
+        playerSpaceship = PlayerSpaceship.getInstance();
+        enemies = new Enemy[20];
+        enemies[0] = new Enemy();
         shipLocation = playerSpaceship.getPosition();
 
         stage.addActor(playerSpaceship);
+        stage.addActor(enemies[0]);
 
     }
 

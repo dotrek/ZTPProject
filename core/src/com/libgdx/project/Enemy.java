@@ -1,6 +1,8 @@
 package com.libgdx.project;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
@@ -12,5 +14,10 @@ public class Enemy extends Spaceship {
     Enemy() {
         super();
         spaceshipSprite = new Sprite(texture);
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        batch.draw(spaceshipSprite, Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2);
     }
 }

@@ -13,9 +13,10 @@ import com.badlogic.gdx.math.Vector2;
  */
 
 public class PlayerSpaceship extends Spaceship {
+    private static PlayerSpaceship instance;
     static final float ACCELERATION_X = 50f;
     static final float ACCELERATION_Y = 50f;
-    private static final float MAX_VELOCITY = 100f;
+    private static final float MAX_VELOCITY = 300f;
     private static final Texture texture = new Texture("spaceship.png");
 
     private Vector2 velocity;
@@ -39,7 +40,7 @@ public class PlayerSpaceship extends Spaceship {
     MoveStateX movestate = MoveStateX.STOP;
     MoveStateY moveStateY = MoveStateY.STOP;
 
-    PlayerSpaceship() {
+    private PlayerSpaceship() {
         this.spaceshipSprite = new Sprite(texture);
         this.spaceshipSprite.setSize(64f, 64f);
         health = 10;
@@ -51,19 +52,29 @@ public class PlayerSpaceship extends Spaceship {
 
     }
 
+    public static PlayerSpaceship getInstance() {
+        if (instance == null) {
+            instance = new PlayerSpaceship();
+        }
+        return instance;
+    }
 
     private void checkBorders() {
         if (position.x > Gdx.graphics.getWidth() - spaceshipSprite.getWidth()) {
             position.x = Gdx.graphics.getWidth() - spaceshipSprite.getWidth();
+            velocity.x = 0f;
         }
         if (position.x < 0) {
             position.x = 0;
+            velocity.x = 0f;
         }
         if (position.y < 0) {
             position.y = 0;
+            velocity.y = 0;
         }
         if (position.y > Gdx.graphics.getHeight() - spaceshipSprite.getHeight()) {
             position.y = Gdx.graphics.getHeight() - spaceshipSprite.getHeight();
+            velocity.y = 0;
         }
     }
 
