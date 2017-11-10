@@ -37,7 +37,7 @@ public class PlayerSpaceship extends Spaceship {
         UP, DOWN, STOP
     }
 
-    MoveStateX movestate = MoveStateX.STOP;
+    MoveStateX moveStateX = MoveStateX.STOP;
     MoveStateY moveStateY = MoveStateY.STOP;
 
     private PlayerSpaceship() {
@@ -80,29 +80,24 @@ public class PlayerSpaceship extends Spaceship {
 
     public void update(float delta) {
         checkBorders();
-        if (movestate == MoveStateX.LEFT || movestate == MoveStateX.RIGHT) {
-            if (velocity.x < MAX_VELOCITY)
-                velocity.add(acceleration.cpy().scl(delta));
+
+        if ((moveStateX == MoveStateX.LEFT || moveStateX == MoveStateX.RIGHT) && velocity.x < MAX_VELOCITY) {
+            velocity.add(acceleration.cpy().scl(delta));
         }
-        if (moveStateY == MoveStateY.UP || moveStateY == MoveStateY.DOWN) {
-            if (velocity.y < MAX_VELOCITY)
-                velocity.add(acceleration.cpy().scl(delta));
+        if ((moveStateY == MoveStateY.UP || moveStateY == MoveStateY.DOWN) && velocity.y < MAX_VELOCITY) {
+            velocity.add(acceleration.cpy().scl(delta));
         }
-        if (moveStateY == MoveStateY.STOP && velocity.y > 0) {
-            if (velocity.y > -MAX_VELOCITY)
-                velocity.y += -ACCELERATION_Y * delta;
+        if ((moveStateY == MoveStateY.STOP && velocity.y > 0) && velocity.y > -MAX_VELOCITY) {
+            velocity.y += -ACCELERATION_Y * delta;
         }
-        if (moveStateY == MoveStateY.STOP && velocity.y < 0) {
-            if (velocity.y < MAX_VELOCITY)
-                velocity.y += ACCELERATION_Y * delta;
+        if ((moveStateY == MoveStateY.STOP && velocity.y < 0) && velocity.y < MAX_VELOCITY) {
+            velocity.y += ACCELERATION_Y * delta;
         }
-        if (movestate == MoveStateX.STOP && velocity.x > 0) {
-            if (velocity.x > -MAX_VELOCITY)
-                velocity.x += -ACCELERATION_X * delta;
+        if ((moveStateX == MoveStateX.STOP && velocity.x > 0) && velocity.x > -MAX_VELOCITY) {
+            velocity.x += -ACCELERATION_X * delta;
         }
-        if (movestate == MoveStateX.STOP && velocity.x < 0) {
-            if (velocity.x < MAX_VELOCITY)
-                velocity.x += ACCELERATION_X * delta;
+        if ((moveStateX == MoveStateX.STOP && velocity.x < 0) && velocity.x < MAX_VELOCITY) {
+            velocity.x += ACCELERATION_X * delta;
         }
         position.add(velocity.cpy().scl(delta));
     }

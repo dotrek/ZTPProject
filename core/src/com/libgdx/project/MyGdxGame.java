@@ -1,6 +1,5 @@
 package com.libgdx.project;
 
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,10 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-
 public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
-    Texture img, background;
+    Texture img;
+    Texture background;
     PlayerSpaceship playerSpaceship;
     Enemy[] enemies;
     Sprite backgroundSprite;
@@ -36,7 +35,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
         stage.addActor(playerSpaceship);
         stage.addActor(enemies[0]);
-
     }
 
     private void drawBackground() {
@@ -81,12 +79,10 @@ public class MyGdxGame extends ApplicationAdapter {
 
             counter++;
         }
-
     }
 
     private void loadAssets() {
         img = new Texture("spaceship.png");
         background = new Texture("background.jpg");
-
     }
 }

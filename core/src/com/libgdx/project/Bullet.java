@@ -16,7 +16,6 @@ public class Bullet extends Actor {
     private static Sprite bulletSprite;
     private int damage;
 
-
     public Bullet(Vector2 sentLocation, Vector2 sentVelocity) {
 
         bulletTexture = new Texture("bullet.png");
@@ -30,7 +29,6 @@ public class Bullet extends Actor {
         bulletLocation.x += getBulletVelocity().x;
         bulletLocation.y += getBulletVelocity().y;
     }
-
 
     public Vector2 getBulletVelocity() {
         return bulletVelocity;

@@ -1,6 +1,5 @@
 package com.libgdx.project;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
@@ -31,12 +30,12 @@ public class OURInputProcessor implements InputProcessor {
 
         }
         if (keycode == Input.Keys.A) {
-            spaceship.movestate = PlayerSpaceship.MoveStateX.LEFT;
+            spaceship.moveStateX = PlayerSpaceship.MoveStateX.LEFT;
             spaceship.acceleration.set(-ACCELERATION_X, 0);
 
         }
         if (keycode == Input.Keys.D) {
-            spaceship.movestate = PlayerSpaceship.MoveStateX.RIGHT;
+            spaceship.moveStateX = PlayerSpaceship.MoveStateX.RIGHT;
             spaceship.acceleration.set(ACCELERATION_X, 0);
         }
 
@@ -44,20 +43,19 @@ public class OURInputProcessor implements InputProcessor {
         if (keycode == Input.Keys.SPACE) {
             Bullet bullet = new Bullet(new Vector2(spaceship.position.x, spaceship.position.y + spaceship.spaceshipSprite
                     .getHeight() / 2f),
-                    spaceship.bulletVelocity);
+                    Spaceship.bulletVelocity);
             spaceship.bullets.add(bullet);
             spaceship.sound.play();
         }
         return false;
     }
 
-
     @Override
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.W || keycode == Input.Keys.S)
             spaceship.moveStateY = PlayerSpaceship.MoveStateY.STOP;
         if (keycode == Input.Keys.A || keycode == Input.Keys.D)
-            spaceship.movestate = PlayerSpaceship.MoveStateX.STOP;
+            spaceship.moveStateX = PlayerSpaceship.MoveStateX.STOP;
 
         return false;
     }

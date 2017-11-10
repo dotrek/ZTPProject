@@ -18,7 +18,6 @@ public class Spaceship extends Actor {
     private Rectangle spaceshipRectangle;
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
-
     public Spaceship() {
         this.spaceshipSprite = new Sprite();
         this.health = 10;
