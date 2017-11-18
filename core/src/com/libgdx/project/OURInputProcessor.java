@@ -1,5 +1,6 @@
 package com.libgdx.project;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
@@ -40,8 +41,8 @@ public class OURInputProcessor implements InputProcessor {
         }
 
 
-        if (keycode == Input.Keys.SPACE) {
-            Bullet bullet = new Bullet(new Vector2(spaceship.position.x, spaceship.position.y + spaceship.spaceshipSprite
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            Bullet bullet = new Bullet(new Vector2(spaceship.getX(), spaceship.getY() + spaceship.spaceshipSprite
                     .getHeight() / 2f),
                     Spaceship.bulletVelocity);
             spaceship.bullets.add(bullet);

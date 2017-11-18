@@ -21,12 +21,12 @@ public class PlayerSpaceship extends Spaceship {
 
     private Vector2 velocity;
     Vector2 acceleration;
-    Vector2 position;
+    Vector2 temp;
 
     Sound sound;
 
     public Vector2 getPosition() {
-        return position;
+        return new Vector2(getX(), getY());
     }
 
     public enum MoveStateX {
@@ -48,7 +48,7 @@ public class PlayerSpaceship extends Spaceship {
 
         velocity = new Vector2(0, 0);
         acceleration = new Vector2(0, 0);
-        position = new Vector2(spaceshipSprite.getX(), spaceshipSprite.getY());
+        temp = new Vector2();
 
     }
 
@@ -60,26 +60,27 @@ public class PlayerSpaceship extends Spaceship {
     }
 
     private void checkBorders() {
-        if (position.x > Gdx.graphics.getWidth() - spaceshipSprite.getWidth()) {
-            position.x = Gdx.graphics.getWidth() - spaceshipSprite.getWidth();
+        if (getX() > Gdx.graphics.getWidth() - spaceshipSprite.getWidth()) {
+            setX(Gdx.graphics.getWidth() - spaceshipSprite.getWidth());
             velocity.x = 0f;
         }
-        if (position.x < 0) {
-            position.x = 0;
+        if (getX() < 0) {
+            setX(0);
             velocity.x = 0f;
         }
-        if (position.y < 0) {
-            position.y = 0;
+        if (getY() < 0) {
+            setY(0);
             velocity.y = 0;
         }
-        if (position.y > Gdx.graphics.getHeight() - spaceshipSprite.getHeight()) {
-            position.y = Gdx.graphics.getHeight() - spaceshipSprite.getHeight();
+        if (getY() > Gdx.graphics.getHeight() - spaceshipSprite.getHeight()) {
+            setY(Gdx.graphics.getHeight() - spaceshipSprite.getHeight());
             velocity.y = 0;
         }
     }
 
     public void update(float delta) {
         checkBorders();
+        spaceshipSprite.setPosition(getX(), getY());
 
         if ((moveStateX == MoveStateX.LEFT || moveStateX == MoveStateX.RIGHT) && velocity.x < MAX_VELOCITY) {
             velocity.add(acceleration.cpy().scl(delta));
@@ -99,13 +100,16 @@ public class PlayerSpaceship extends Spaceship {
         if ((moveStateX == MoveStateX.STOP && velocity.x < 0) && velocity.x < MAX_VELOCITY) {
             velocity.x += ACCELERATION_X * delta;
         }
-        position.add(velocity.cpy().scl(delta));
+        temp = getPosition();
+        temp.add(velocity.cpy().scl(delta));
+        setPosition(temp.x, temp.y);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         update(Gdx.graphics.getDeltaTime());
-        batch.draw(spaceshipSprite, position.x, position.y, spaceshipSprite.getWidth(), spaceshipSprite.getHeight());
+        System.out.println(getX() + "\t\t" + getY());
+        batch.draw(spaceshipSprite, getX(), getY(), spaceshipSprite.getWidth(), spaceshipSprite.getHeight());
     }
 
 }
