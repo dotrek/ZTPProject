@@ -50,6 +50,8 @@ public class PlayerSpaceship extends Spaceship {
         super();
         this.spaceshipSprite = new Sprite(texture);
         this.spaceshipSprite.setSize(64f, 64f);
+        setPosition(Gdx.graphics.getWidth()/2f-spaceshipSprite.getWidth()/2f,Gdx.graphics.getHeight()
+                /2f-spaceshipSprite.getHeight()/2f);
         spaceshipSprite.setOrigin(spaceshipSprite.getWidth() / 2f, spaceshipSprite.getHeight() / 2f);
         health = 10;
         sound = Gdx.audio.newSound(new FileHandle("ciu.mp3"));

@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.kotcrab.vis.ui.VisUI;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,7 @@ public class MyGdxGame extends ApplicationAdapter {
         stage = new Stage();
         world = new World(new Vector2(0, 0), false);
         Gdx.input.setInputProcessor(stage);
+        VisUI.load();
         loadAssets();
         backgroundSprite = new Sprite(background);
         backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -79,9 +81,8 @@ public class MyGdxGame extends ApplicationAdapter {
             Bullet currentBullet = playerSpaceship.bullets.get(counter);
             stage.addActor(currentBullet);
             currentBullet.update(Gdx.graphics.getDeltaTime());
-            if (currentBullet.getX() > -50 && currentBullet.getX() < Gdx.graphics.getWidth() + 50
-                    && currentBullet.getY() > -50 && currentBullet.getY() < Gdx.graphics
-                    .getHeight() + 50) {
+            if (currentBullet.getX() > -50 && currentBullet.getX() < Gdx.graphics.getWidth() + 50 && currentBullet
+                    .getY() > -50 && currentBullet.getY() < Gdx.graphics.getHeight() + 50) {
                 currentBullet.act(delta);
                 checkCollision(currentBullet);
 
@@ -100,18 +101,17 @@ public class MyGdxGame extends ApplicationAdapter {
 
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).spaceshipSprite.getBoundingRectangle()
-                    .overlaps(bullet.bulletSprite.getBoundingRectangle())) {
+                                              .overlaps(bullet.bulletSprite.getBoundingRectangle())) {
                 enemies.get(i).health -= bullet.getDamage();
                 bullet.addAction(Actions.removeActor());
-                if (playerSpaceship.bullets.contains(bullet))
-                    playerSpaceship.bullets.remove(bullet);
+                if (playerSpaceship.bullets.contains(bullet)) playerSpaceship.bullets.remove(bullet);
             }
         }
     }
 
     private void checkIfEnemyDead() {
         for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).health < 0) {
+            if (enemies.get(i).health <= 0) {
                 enemies.get(i).addAction(Actions.removeActor());
                 enemies.remove(i);
                 hitSound.play();

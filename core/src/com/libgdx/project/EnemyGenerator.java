@@ -40,15 +40,29 @@ public class EnemyGenerator extends Actor {
 
     @Override
     public void act(float delta) {
-        Random r = new Random();
-        float height = Gdx.graphics.getHeight();
-        float width = Gdx.graphics.getWidth();
         if (deltaTimer >= frequency) {
-            Enemy e = new Enemy(width, r.nextFloat() * height);
+            Enemy e = getRandomSpawnLocation();
             enemies.add(e);
             getStage().addActor(enemies.get(enemies.indexOf(e)));
             deltaTimer = 0;
         } else deltaTimer += delta;
 
+    }
+
+    private Enemy getRandomSpawnLocation() {
+        Random r = new Random();
+        float height = Gdx.graphics.getHeight();
+        float width = Gdx.graphics.getWidth();
+        switch (r.nextInt(4)) {
+            case 0:
+                return new Enemy(width, r.nextFloat() * height);
+            case 1:
+                return new Enemy(0, r.nextFloat() * height);
+            case 2:
+                return new Enemy(r.nextFloat() * width, height);
+            case 3:
+                return new Enemy(r.nextFloat() * width, 0f);
+        }
+        return new Enemy();
     }
 }
