@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by dotre on 19.11.2017.
  */
 public class GameClass extends Game {
+
     SpriteBatch batch;
     BitmapFont font;
 
@@ -18,6 +19,7 @@ public class GameClass extends Game {
         this.setScreen(new MainMenu(this));
     }
 
+    @Override
     public void render() {
         super.render();
     }

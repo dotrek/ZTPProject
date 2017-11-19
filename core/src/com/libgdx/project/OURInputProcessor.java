@@ -13,6 +13,7 @@ import static com.libgdx.project.PlayerSpaceship.ACCELERATION_Y;
  * Created by dotre on 03.11.2017.
  */
 public class OURInputProcessor implements InputProcessor {
+
     PlayerSpaceship spaceship;
     int counter;
 

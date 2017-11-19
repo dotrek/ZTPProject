@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 
 public class PlayerSpaceship extends Spaceship {
+
     private static PlayerSpaceship instance;
     static final float ACCELERATION_X = 50f;
     static final float ACCELERATION_Y = 50f;

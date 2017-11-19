@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * Created by dotre on 24.10.2017.
  */
 public class Bullet extends Actor {
+
     public Vector2 bulletLocation;
     private Vector2 bulletVelocity;
     private Vector2 target;

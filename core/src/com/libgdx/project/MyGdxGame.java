@@ -14,6 +14,7 @@ import com.kotcrab.vis.ui.VisUI;
 import java.util.ArrayList;
 
 public class MyGdxGame implements Screen {
+
     final GameClass game;
     public static float delta;
     Texture img;

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  * Created by dotre on 04.11.2017.
  */
 public class Enemy extends Spaceship {
+
     private static final Texture texture = new Texture("enemy.png");
     PlayerSpaceship playerInstance;
     private Vector2 moveVelocity;

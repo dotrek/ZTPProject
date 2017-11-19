@@ -3,8 +3,6 @@ package com.libgdx.project;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisProgressBar;
 
 import java.util.ArrayList;
@@ -13,6 +11,7 @@ import java.util.ArrayList;
  * Created by dotre on 04.11.2017.
  */
 public class Spaceship extends Actor {
+
     Sprite spaceshipSprite;
     int health;
     VisProgressBar progressBar;
@@ -34,7 +33,6 @@ public class Spaceship extends Actor {
         this.health = health;
         this.bullets = new ArrayList<Bullet>();
     }
-
 
     private void update() {
         this.spaceshipSprite.setPosition(getX(), getY());

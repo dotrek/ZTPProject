@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
  * Created by dotre on 19.11.2017.
  */
 public class MainMenu implements Screen {
+
     final GameClass game;
 
     MainMenu(GameClass game) {

@@ -10,6 +10,7 @@ import java.util.Random;
  * Created by dotre on 17.11.2017.
  */
 public class EnemyGenerator extends Actor {
+
     private int enemiesAmount;
     private float frequency;
     float deltaTimer;
