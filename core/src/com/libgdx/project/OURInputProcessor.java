@@ -3,6 +3,7 @@ package com.libgdx.project;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import static com.libgdx.project.PlayerSpaceship.ACCELERATION_X;
@@ -13,6 +14,7 @@ import static com.libgdx.project.PlayerSpaceship.ACCELERATION_Y;
  */
 public class OURInputProcessor implements InputProcessor {
     PlayerSpaceship spaceship;
+    int counter;
 
     OURInputProcessor(PlayerSpaceship spaceship) {
         this.spaceship = spaceship;
@@ -40,14 +42,6 @@ public class OURInputProcessor implements InputProcessor {
             spaceship.acceleration.set(ACCELERATION_X, 0);
         }
 
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            Bullet bullet = new Bullet(new Vector2(spaceship.getX(), spaceship.getY() + spaceship.spaceshipSprite
-                    .getHeight() / 2f),
-                    Spaceship.bulletVelocity);
-            spaceship.bullets.add(bullet);
-            spaceship.sound.play();
-        }
         return false;
     }
 
@@ -68,6 +62,13 @@ public class OURInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        Bullet bullet = new Bullet(new Vector2(spaceship.getX(), spaceship.getY() + spaceship.spaceshipSprite
+                .getHeight() / 2f), new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+        System.out.println(Gdx.input.getX() + "\t" + Gdx.input.getY());
+        bullet.setRotation(spaceship.getRotation());
+        spaceship.bullets.add(bullet);
+        spaceship.sound.play();
+
         return false;
     }
 
@@ -83,7 +84,12 @@ public class OURInputProcessor implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        return false;
+        float mouseX = Gdx.input.getX();
+        float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        float rot = MathUtils.radiansToDegrees * MathUtils.atan2(mouseY - spaceship.getY(), mouseX - spaceship
+                .getX());
+        spaceship.setRotation(rot);
+        return true;
     }
 
     @Override

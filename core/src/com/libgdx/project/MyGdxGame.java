@@ -78,9 +78,9 @@ public class MyGdxGame extends ApplicationAdapter {
         while (counter < playerSpaceship.bullets.size()) {
             Bullet currentBullet = playerSpaceship.bullets.get(counter);
             stage.addActor(currentBullet);
-            currentBullet.update();
-            if (currentBullet.bulletLocation.x > -50 && currentBullet.bulletLocation.x < Gdx.graphics.getWidth() + 50
-                    && currentBullet.bulletLocation.y > -50 && currentBullet.bulletLocation.y < Gdx.graphics
+            currentBullet.update(Gdx.graphics.getDeltaTime());
+            if (currentBullet.getX() > -50 && currentBullet.getX() < Gdx.graphics.getWidth() + 50
+                    && currentBullet.getY() > -50 && currentBullet.getY() < Gdx.graphics
                     .getHeight() + 50) {
                 currentBullet.act(delta);
                 checkCollision(currentBullet);

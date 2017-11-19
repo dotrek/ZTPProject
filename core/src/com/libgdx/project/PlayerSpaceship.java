@@ -25,6 +25,12 @@ public class PlayerSpaceship extends Spaceship {
 
     Sound sound;
 
+    @Override
+    protected void rotationChanged() {
+        super.rotationChanged();
+        spaceshipSprite.setRotation(getRotation());
+    }
+
     public Vector2 getPosition() {
         return new Vector2(getX(), getY());
     }
@@ -41,8 +47,10 @@ public class PlayerSpaceship extends Spaceship {
     MoveStateY moveStateY = MoveStateY.STOP;
 
     private PlayerSpaceship() {
+        super();
         this.spaceshipSprite = new Sprite(texture);
         this.spaceshipSprite.setSize(64f, 64f);
+        spaceshipSprite.setOrigin(spaceshipSprite.getWidth() / 2f, spaceshipSprite.getHeight() / 2f);
         health = 10;
         sound = Gdx.audio.newSound(new FileHandle("ciu.mp3"));
 
@@ -81,6 +89,7 @@ public class PlayerSpaceship extends Spaceship {
     public void update(float delta) {
         checkBorders();
         spaceshipSprite.setPosition(getX(), getY());
+        spaceshipSprite.setRotation(getRotation());
 
         if ((moveStateX == MoveStateX.LEFT || moveStateX == MoveStateX.RIGHT) && velocity.x < MAX_VELOCITY) {
             velocity.add(acceleration.cpy().scl(delta));
@@ -108,8 +117,9 @@ public class PlayerSpaceship extends Spaceship {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         update(Gdx.graphics.getDeltaTime());
-        System.out.println(getX() + "\t\t" + getY());
-        batch.draw(spaceshipSprite, getX(), getY(), spaceshipSprite.getWidth(), spaceshipSprite.getHeight());
+//        System.out.println(getX() + "\t\t" + getY());
+//        batch.draw(spaceshipSprite, getX(), getY(), spaceshipSprite.getWidth(), spaceshipSprite.getHeight());
+        spaceshipSprite.draw(batch, parentAlpha);
     }
 
 }
