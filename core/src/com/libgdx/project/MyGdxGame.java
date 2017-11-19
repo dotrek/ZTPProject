@@ -1,25 +1,21 @@
 package com.libgdx.project;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.kotcrab.vis.ui.VisUI;
 
 import java.util.ArrayList;
 
-public class MyGdxGame extends ApplicationAdapter {
+public class MyGdxGame implements Screen {
+    final GameClass game;
     public static float delta;
-    SpriteBatch batch;
-    World world;
     Texture img;
     Texture background;
     PlayerSpaceship playerSpaceship;
@@ -29,12 +25,10 @@ public class MyGdxGame extends ApplicationAdapter {
     Sound hitSound;
     EnemyGenerator enemyGenerator;
 
-    @Override
-    public void create() {
+    MyGdxGame(GameClass game) {
+        this.game = game;
         delta = Gdx.graphics.getDeltaTime();
-        batch = new SpriteBatch();
         stage = new Stage();
-        world = new World(new Vector2(0, 0), false);
         Gdx.input.setInputProcessor(stage);
         VisUI.load();
         loadAssets();
@@ -44,24 +38,22 @@ public class MyGdxGame extends ApplicationAdapter {
         playerSpaceship = PlayerSpaceship.getInstance();
         enemies = new ArrayList<Enemy>();
         enemyGenerator = new EnemyGenerator(10, 5f, enemies);
-
         stage.addActor(playerSpaceship);
         stage.addActor(enemyGenerator);
-        System.out.println(world.getBodyCount());
     }
 
     private void drawBackground() {
-        backgroundSprite.draw(batch);
+        backgroundSprite.draw(game.batch);
     }
 
     @Override
-    public void render() {
+    public void render(float delta) {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.input.setInputProcessor(new OURInputProcessor(playerSpaceship));
-        batch.begin();
+        game.batch.begin();
         drawBackground();
-        batch.end();
+        game.batch.end();
         stage.act();
         checkIfEnemyDead();
         shooting();
@@ -71,8 +63,33 @@ public class MyGdxGame extends ApplicationAdapter {
     }
 
     @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
     public void dispose() {
-        batch.dispose();
+        game.batch.dispose();
     }
 
     private void shooting() {
