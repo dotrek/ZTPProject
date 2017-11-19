@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.kotcrab.vis.ui.VisUI;
+import com.kotcrab.vis.ui.widget.VisDialog;
 
 import java.util.ArrayList;
 
@@ -25,13 +26,14 @@ public class MyGdxGame implements Screen {
     Stage stage;
     Sound hitSound;
     EnemyGenerator enemyGenerator;
+    boolean gameover;
+    VisDialog dialog;
 
     MyGdxGame(GameClass game) {
         this.game = game;
         delta = Gdx.graphics.getDeltaTime();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        VisUI.load();
         loadAssets();
         backgroundSprite = new Sprite(background);
         backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -41,6 +43,7 @@ public class MyGdxGame implements Screen {
         enemyGenerator = new EnemyGenerator(10, 5f, enemies);
         stage.addActor(playerSpaceship);
         stage.addActor(enemyGenerator);
+        gameover = false;
     }
 
     private void drawBackground() {
@@ -58,9 +61,9 @@ public class MyGdxGame implements Screen {
         stage.act();
         checkIfEnemyDead();
         shooting();
-
         playerSpaceship.update(Gdx.graphics.getDeltaTime());
         stage.draw();
+        checkIfPlayerDead();
     }
 
     @Override
@@ -133,6 +136,15 @@ public class MyGdxGame implements Screen {
                 enemies.get(i).addAction(Actions.removeActor());
                 enemies.remove(i);
                 hitSound.play();
+            }
+        }
+    }
+
+    private void checkIfPlayerDead() {
+        for (int i = 0; i < enemies.size(); i++) {
+            if (enemies.get(i).spaceshipSprite.getBoundingRectangle()
+                                              .overlaps(playerSpaceship.spaceshipSprite.getBoundingRectangle())) {
+                game.setScreen(new GameOverScreen(game));
             }
         }
     }

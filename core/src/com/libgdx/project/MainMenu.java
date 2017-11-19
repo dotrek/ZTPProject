@@ -2,6 +2,13 @@ package com.libgdx.project;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.kotcrab.vis.ui.widget.VisDialog;
 
 /**
  * Created by dotre on 19.11.2017.
@@ -9,9 +16,56 @@ import com.badlogic.gdx.Screen;
 public class MainMenu implements Screen {
 
     final GameClass game;
+    TextButton start, info, exit;
+    Skin skin;
+    Stage stage;
 
     MainMenu(GameClass game) {
         this.game = game;
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        stage = new Stage();
+        start = new TextButton("Start", skin);
+        info = new TextButton("Info", skin);
+        exit = new TextButton("Exit", skin);
+        stage.addActor(start);
+        stage.addActor(info);
+        stage.addActor(exit);
+        Gdx.input.setInputProcessor(stage);
+        setButtonBounds();
+        setButtonClickListeners();
+    }
+
+    private void setButtonBounds() {
+        start.setSize(Gdx.graphics.getWidth(), start.getHeight());
+        info.setSize(Gdx.graphics.getWidth(), info.getHeight());
+        exit.setSize(Gdx.graphics.getWidth(), exit.getHeight());
+        start.setPosition(0, Gdx.graphics.getHeight() / 2f);
+        info.setPosition(0, start.getY() - start.getHeight());
+        exit.setPosition(0, info.getY() - info.getHeight());
+    }
+
+    private void setButtonClickListeners() {
+        start.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new MyGdxGame(game));
+            }
+        });
+        exit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.exit(0);
+            }
+        });
+        info.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                VisDialog dialog = new VisDialog("Game for ztp project");
+                dialog.setSize(Gdx.graphics.getWidth() / 3f, Gdx.graphics.getHeight() / 6f);
+                dialog.addCloseButton();
+                dialog.show(stage);
+            }
+        });
     }
 
     @Override
@@ -21,15 +75,12 @@ public class MainMenu implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to OUR Game!!!! ", Gdx.graphics.getWidth() / 2f, Gdx.graphics
-                .getHeight() / 2f);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
         game.batch.end();
-        if (Gdx.input.isTouched()) {
-            game.setScreen(new MyGdxGame(game));
-            dispose();
-        }
+        stage.act();
+        stage.draw();
     }
 
     @Override
