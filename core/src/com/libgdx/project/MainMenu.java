@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.widget.VisDialog;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+
 /**
  * Created by dotre on 19.11.2017.
  */
@@ -48,7 +50,7 @@ public class MainMenu implements Screen {
         start.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MyGdxGame(game));
+                game.setScreenWithFade(new MyGdxGame(game), 3f);
             }
         });
         exit.addListener(new ClickListener() {
@@ -70,7 +72,8 @@ public class MainMenu implements Screen {
 
     @Override
     public void show() {
-
+        stage.getRoot().getColor().a = 0;
+        stage.getRoot().addAction(fadeIn(1f));
     }
 
     @Override

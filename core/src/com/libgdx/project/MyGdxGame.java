@@ -14,11 +14,12 @@ import com.kotcrab.vis.ui.widget.VisDialog;
 
 import java.util.ArrayList;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+
 public class MyGdxGame implements Screen {
 
     final GameClass game;
     public static float delta;
-    Texture img;
     Texture background;
     PlayerSpaceship playerSpaceship;
     ArrayList<Enemy> enemies;
@@ -27,7 +28,6 @@ public class MyGdxGame implements Screen {
     Sound hitSound;
     EnemyGenerator enemyGenerator;
     boolean gameover;
-    VisDialog dialog;
 
     MyGdxGame(GameClass game) {
         this.game = game;
@@ -68,7 +68,8 @@ public class MyGdxGame implements Screen {
 
     @Override
     public void show() {
-
+        stage.getRoot().getColor().a = 0;
+        stage.getRoot().addAction(fadeIn(0.5f));
     }
 
     @Override
@@ -151,7 +152,6 @@ public class MyGdxGame implements Screen {
 
 
     private void loadAssets() {
-        img = new Texture("spaceship.png");
         background = new Texture("background.jpg");
         hitSound = Gdx.audio.newSound(new FileHandle("pydsz.mp3"));
     }
