@@ -1,5 +1,6 @@
 package com.libgdx.project;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -20,7 +21,7 @@ public class Spaceship extends Actor {
 
     public Spaceship() {
         this.spaceshipSprite = new Sprite();
-        setBounds(0, 0, 64, 64);
+        setBounds(0, 0, Gdx.graphics.getWidth() / 12.5f, Gdx.graphics.getHeight() / 9f);
         this.health = 10;
         progressBar = new VisProgressBar(0, health, 1f, false);
         speed = 10f;

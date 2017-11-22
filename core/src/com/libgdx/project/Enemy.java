@@ -1,5 +1,6 @@
 package com.libgdx.project;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -17,7 +18,7 @@ public class Enemy extends Spaceship {
     Enemy() {
         super();
         spaceshipSprite = new Sprite(texture);
-        spaceshipSprite.setSize(64, 64);
+        spaceshipSprite.setSize(Gdx.graphics.getWidth() / 12.5f, Gdx.graphics.getHeight() / 9f);
         speed = 30f;
         moveVelocity = new Vector2();
     }
@@ -25,7 +26,7 @@ public class Enemy extends Spaceship {
     Enemy(float positionX, float positionY) {
         super();
         spaceshipSprite = new Sprite(texture);
-        spaceshipSprite.setSize(64, 64);
+        spaceshipSprite.setSize(Gdx.graphics.getWidth() / 12.5f, Gdx.graphics.getHeight() / 9f);
         speed = 30f;
         moveVelocity = new Vector2();
         setPosition(positionX, positionY);

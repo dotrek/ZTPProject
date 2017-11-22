@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import sun.management.Sensor;
 
 import static com.libgdx.project.PlayerSpaceship.ACCELERATION_X;
 import static com.libgdx.project.PlayerSpaceship.ACCELERATION_Y;
@@ -15,7 +16,6 @@ import static com.libgdx.project.PlayerSpaceship.ACCELERATION_Y;
 public class OURInputProcessor implements InputProcessor {
 
     PlayerSpaceship spaceship;
-    int counter;
 
     OURInputProcessor(PlayerSpaceship spaceship) {
         this.spaceship = spaceship;
@@ -48,10 +48,8 @@ public class OURInputProcessor implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.W || keycode == Input.Keys.S)
-            spaceship.moveStateY = PlayerSpaceship.MoveStateY.STOP;
-        if (keycode == Input.Keys.A || keycode == Input.Keys.D)
-            spaceship.moveStateX = PlayerSpaceship.MoveStateX.STOP;
+        if (keycode == Input.Keys.W || keycode == Input.Keys.S) spaceship.moveStateY = PlayerSpaceship.MoveStateY.STOP;
+        if (keycode == Input.Keys.A || keycode == Input.Keys.D) spaceship.moveStateX = PlayerSpaceship.MoveStateX.STOP;
 
         return false;
     }
@@ -65,10 +63,13 @@ public class OURInputProcessor implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Bullet bullet = new Bullet(new Vector2(spaceship.getX(), spaceship.getY() + spaceship.spaceshipSprite
                 .getHeight() / 2f), new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-        System.out.println(Gdx.input.getX() + "\t" + Gdx.input.getY());
+        float rot = MathUtils.radiansToDegrees * MathUtils
+                .atan2(-screenY +spaceship.getY(), screenX - spaceship.getX());
+        spaceship.setRotation(rot);
         bullet.setRotation(spaceship.getRotation());
         spaceship.bullets.add(bullet);
         spaceship.sound.play();
+        Gdx.input.vibrate(100);
 
         return false;
     }
@@ -87,8 +88,7 @@ public class OURInputProcessor implements InputProcessor {
     public boolean mouseMoved(int screenX, int screenY) {
         float mouseX = Gdx.input.getX();
         float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-        float rot = MathUtils.radiansToDegrees * MathUtils.atan2(mouseY - spaceship.getY(), mouseX - spaceship
-                .getX());
+        float rot = MathUtils.radiansToDegrees * MathUtils.atan2(mouseY - spaceship.getY(), mouseX - spaceship.getX());
         spaceship.setRotation(rot);
         return true;
     }

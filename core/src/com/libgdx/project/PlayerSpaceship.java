@@ -2,7 +2,6 @@ package com.libgdx.project;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -50,12 +49,12 @@ public class PlayerSpaceship extends Spaceship {
     private PlayerSpaceship() {
         super();
         this.spaceshipSprite = new Sprite(texture);
-        this.spaceshipSprite.setSize(64f, 64f);
-        setPosition(Gdx.graphics.getWidth()/2f-spaceshipSprite.getWidth()/2f,Gdx.graphics.getHeight()
-                /2f-spaceshipSprite.getHeight()/2f);
+        this.spaceshipSprite.setSize(Gdx.graphics.getWidth() / 12.5f, Gdx.graphics.getHeight() / 9f);
+        setPosition(Gdx.graphics.getWidth() / 2f - spaceshipSprite.getWidth() / 2f, Gdx.graphics
+                .getHeight() / 2f - spaceshipSprite.getHeight() / 2f);
         spaceshipSprite.setOrigin(spaceshipSprite.getWidth() / 2f, spaceshipSprite.getHeight() / 2f);
         health = 10;
-        sound = Gdx.audio.newSound(new FileHandle("ciu.mp3"));
+        sound = Gdx.audio.newSound(Gdx.files.internal("ciu.mp3"));
 
         velocity = new Vector2(0, 0);
         acceleration = new Vector2(0, 0);
@@ -89,7 +88,7 @@ public class PlayerSpaceship extends Spaceship {
         }
     }
 
-    public void update(float delta) {
+    public void desktopMovement(float delta) {
         checkBorders();
         spaceshipSprite.setPosition(getX(), getY());
         spaceshipSprite.setRotation(getRotation());
@@ -117,11 +116,17 @@ public class PlayerSpaceship extends Spaceship {
         setPosition(temp.x, temp.y);
     }
 
+    private void androidMovement() {
+        checkBorders();
+        float accelX = Gdx.input.getAccelerometerX();
+        float accelY = Gdx.input.getAccelerometerY();
+        setPosition(getX() + accelY, getY() - accelX);
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        update(Gdx.graphics.getDeltaTime());
-//        System.out.println(getX() + "\t\t" + getY());
-//        batch.draw(spaceshipSprite, getX(), getY(), spaceshipSprite.getWidth(), spaceshipSprite.getHeight());
+        desktopMovement(Gdx.graphics.getDeltaTime());
+        androidMovement();
         spaceshipSprite.draw(batch, parentAlpha);
     }
 

@@ -3,6 +3,7 @@ package com.libgdx.project;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -21,12 +22,14 @@ public class GameClass extends Game {
     SpriteBatch batch;
     Actor fadeActor = new Actor();
     ShapeRenderer fadeRenderer;
+    AssetManager assets;
 
     @Override
     public void create() {
         VisUI.load();
         batch = new SpriteBatch();
         fadeRenderer = new ShapeRenderer();
+        assets = new AssetManager();
         this.setScreen(new MainMenu(this));
     }
 
@@ -34,7 +37,7 @@ public class GameClass extends Game {
         fadeActor.clearActions();
         fadeActor.setColor(Color.CLEAR);
         fadeActor.addAction(Actions
-                .sequence(Actions.color(Color.BLACK,duration / 2f, Interpolation.fade), Actions.run(new Runnable() {
+                .sequence(Actions.color(Color.BLACK, duration / 2f, Interpolation.fade), Actions.run(new Runnable() {
                     public void run() {
                         setScreen(screen);
                     }

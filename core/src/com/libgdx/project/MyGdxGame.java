@@ -3,14 +3,11 @@ package com.libgdx.project;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.kotcrab.vis.ui.VisUI;
-import com.kotcrab.vis.ui.widget.VisDialog;
 
 import java.util.ArrayList;
 
@@ -61,7 +58,7 @@ public class MyGdxGame implements Screen {
         stage.act();
         checkIfEnemyDead();
         shooting();
-        playerSpaceship.update(Gdx.graphics.getDeltaTime());
+        playerSpaceship.desktopMovement(Gdx.graphics.getDeltaTime());
         stage.draw();
         checkIfPlayerDead();
     }
@@ -146,6 +143,7 @@ public class MyGdxGame implements Screen {
             if (enemies.get(i).spaceshipSprite.getBoundingRectangle()
                                               .overlaps(playerSpaceship.spaceshipSprite.getBoundingRectangle())) {
                 game.setScreen(new GameOverScreen(game));
+                Gdx.input.vibrate(2000);
             }
         }
     }
@@ -153,6 +151,6 @@ public class MyGdxGame implements Screen {
 
     private void loadAssets() {
         background = new Texture("background.jpg");
-        hitSound = Gdx.audio.newSound(new FileHandle("pydsz.mp3"));
+        hitSound = Gdx.audio.newSound(Gdx.files.internal("pydsz.mp3"));
     }
 }
