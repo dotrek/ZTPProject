@@ -6,11 +6,11 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-import com.libgdx.project.Actors.PlayerSpaceship;
-import com.libgdx.project.Actors.Bullet;
+import com.libgdx.project.actors.PlayerSpaceship;
+import com.libgdx.project.actors.Bullet;
 
-import static com.libgdx.project.Actors.PlayerSpaceship.ACCELERATION_X;
-import static com.libgdx.project.Actors.PlayerSpaceship.ACCELERATION_Y;
+import static com.libgdx.project.actors.PlayerSpaceship.ACCELERATION_X;
+import static com.libgdx.project.actors.PlayerSpaceship.ACCELERATION_Y;
 
 /**
  * Created by dotre on 03.11.2017.

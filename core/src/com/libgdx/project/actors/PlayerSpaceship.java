@@ -1,4 +1,4 @@
-package com.libgdx.project.Actors;
+package com.libgdx.project.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by dotre on 24.10.2017.
  */
 
-public class PlayerSpaceship extends com.libgdx.project.Actors.Spaceship {
+public class PlayerSpaceship extends com.libgdx.project.actors.Spaceship {
 
     private static PlayerSpaceship instance;
     public static final float ACCELERATION_X = 50f;

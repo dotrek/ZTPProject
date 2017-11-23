@@ -1,4 +1,4 @@
-package com.libgdx.project.Actors;
+package com.libgdx.project.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -33,7 +33,7 @@ public class Enemy extends Spaceship {
     }
 
     private void update(float delta) {
-        playerInstance = com.libgdx.project.Actors.PlayerSpaceship.getInstance();
+        playerInstance = com.libgdx.project.actors.PlayerSpaceship.getInstance();
 //        System.out.println(playerInstance.getX() + "\t" + playerInstance.getY() + "\t \t " + getX() + "  " + getY());
         moveVelocity.x = (playerInstance.getX() - this.getX());
         moveVelocity.y = (playerInstance.getY() - this.getY());

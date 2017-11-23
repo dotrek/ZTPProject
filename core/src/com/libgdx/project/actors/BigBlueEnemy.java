@@ -1,4 +1,4 @@
-package com.libgdx.project.Actors;
+package com.libgdx.project.actors;
 
 /**
  * Created by dotre on 23.11.2017.

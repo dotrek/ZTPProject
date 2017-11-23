@@ -1,4 +1,4 @@
-package com.libgdx.project.Screen;
+package com.libgdx.project.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

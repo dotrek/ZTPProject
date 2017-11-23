@@ -1,12 +1,10 @@
-package com.libgdx.project.Actors;
+package com.libgdx.project.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.widget.VisProgressBar;
-
-import com.libgdx.project.Actors.Bullet;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.libgdx.project.Actors;
+package com.libgdx.project.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

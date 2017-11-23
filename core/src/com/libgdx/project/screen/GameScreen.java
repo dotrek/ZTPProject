@@ -1,4 +1,4 @@
-package com.libgdx.project.Screen;
+package com.libgdx.project.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,10 +9,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.libgdx.project.*;
-import com.libgdx.project.Actors.*;
-import com.libgdx.project.Actors.Bullet;
-import com.libgdx.project.Actors.Enemy;
-import com.libgdx.project.Actors.PlayerSpaceship;
+import com.libgdx.project.actors.Bullet;
+import com.libgdx.project.actors.Enemy;
+import com.libgdx.project.actors.PlayerSpaceship;
 
 import java.util.ArrayList;
 
@@ -121,7 +120,7 @@ public class GameScreen implements Screen {
         }
     }
 
-    private void checkCollision(com.libgdx.project.Actors.Bullet bullet) {
+    private void checkCollision(com.libgdx.project.actors.Bullet bullet) {
 
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).spaceshipSprite.getBoundingRectangle()
@@ -147,7 +146,7 @@ public class GameScreen implements Screen {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).spaceshipSprite.getBoundingRectangle()
                                               .overlaps(playerSpaceship.spaceshipSprite.getBoundingRectangle())) {
-                game.setScreen(new com.libgdx.project.Screen.GameOverScreen(game));
+                game.setScreen(new com.libgdx.project.screen.GameOverScreen(game));
                 Gdx.input.vibrate(2000);
             }
         }

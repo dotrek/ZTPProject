@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.libgdx.project.Actors.BigBlueEnemy;
-import com.libgdx.project.Actors.Enemy;
-import com.libgdx.project.Actors.PurpleEnemy;
-import com.libgdx.project.Actors.GreenEnemy;
+import com.libgdx.project.actors.BigBlueEnemy;
+import com.libgdx.project.actors.Enemy;
+import com.libgdx.project.actors.PurpleEnemy;
+import com.libgdx.project.actors.GreenEnemy;
 
 /**
  * Created by dotre on 17.11.2017.
@@ -48,7 +48,7 @@ public class EnemyGenerator extends Actor {
     @Override
     public void act(float delta) {
         if (deltaTimer >= frequency) {
-            com.libgdx.project.Actors.Enemy e = getRandomSpawnLocation();
+            com.libgdx.project.actors.Enemy e = getRandomSpawnLocation();
             enemies.add(e);
             getStage().addActor(enemies.get(enemies.indexOf(e)));
             deltaTimer = 0;

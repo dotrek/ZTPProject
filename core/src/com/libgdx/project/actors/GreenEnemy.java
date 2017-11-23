@@ -1,4 +1,4 @@
-package com.libgdx.project.Actors;
+package com.libgdx.project.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by dotre on 23.11.2017.
  */
-public class PurpleEnemy extends Enemy {
-    Texture texture = new Texture(Gdx.files.internal("spaceshippurple.png"));
+public class GreenEnemy extends Enemy {
+    Texture texture = new Texture(Gdx.files.internal("spaceshipgreen.png"));
 
-    public PurpleEnemy() {
+    public GreenEnemy() {
         super();
         spaceshipSprite.setTexture(texture);
     }

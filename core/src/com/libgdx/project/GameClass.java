@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.kotcrab.vis.ui.VisUI;
-import com.libgdx.project.Screen.*;
+import com.libgdx.project.screen.*;
 
 /**
  * Created by dotre on 19.11.2017.
