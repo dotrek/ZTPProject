@@ -6,20 +6,20 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.kotcrab.vis.ui.VisUI;
+import com.libgdx.project.Screen.*;
 
 /**
  * Created by dotre on 19.11.2017.
  */
 public class GameClass extends Game {
 
-    SpriteBatch batch;
+    public SpriteBatch batch;
     Actor fadeActor = new Actor();
     ShapeRenderer fadeRenderer;
     AssetManager assets;

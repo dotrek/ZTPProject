@@ -1,4 +1,4 @@
-package com.libgdx.project;
+package com.libgdx.project.Actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -7,23 +7,25 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 /**
  * Created by dotre on 24.10.2017.
  */
 
-public class PlayerSpaceship extends Spaceship {
+public class PlayerSpaceship extends com.libgdx.project.Actors.Spaceship {
 
     private static PlayerSpaceship instance;
-    static final float ACCELERATION_X = 50f;
-    static final float ACCELERATION_Y = 50f;
+    public static final float ACCELERATION_X = 50f;
+    public static final float ACCELERATION_Y = 50f;
     private static final float MAX_VELOCITY = 300f;
     private static final Texture texture = new Texture("spaceship.png");
 
     private Vector2 velocity;
-    Vector2 acceleration;
+    public Vector2 acceleration;
     Vector2 temp;
 
-    Sound sound;
+    public Sound sound;
 
     @Override
     protected void rotationChanged() {
@@ -43,8 +45,8 @@ public class PlayerSpaceship extends Spaceship {
         UP, DOWN, STOP
     }
 
-    MoveStateX moveStateX = MoveStateX.STOP;
-    MoveStateY moveStateY = MoveStateY.STOP;
+    public MoveStateX moveStateX = MoveStateX.STOP;
+    public MoveStateY moveStateY = MoveStateY.STOP;
 
     private PlayerSpaceship() {
         super();
@@ -128,6 +130,10 @@ public class PlayerSpaceship extends Spaceship {
         desktopMovement(Gdx.graphics.getDeltaTime());
         androidMovement();
         spaceshipSprite.draw(batch, parentAlpha);
+    }
+
+    public ArrayList<Bullet> getBullets() {
+        return super.bullets;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.libgdx.project;
+package com.libgdx.project.Actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,10 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class Bullet extends Actor {
 
-    public Vector2 bulletLocation;
-    private Vector2 bulletVelocity;
     private Vector2 target;
-    private static Texture bulletTexture;
+    private static Texture bulletTexture = new Texture("bullet.png");
     public Sprite bulletSprite;
     private int damage;
     float velx, vely;
@@ -23,7 +21,6 @@ public class Bullet extends Actor {
 
     public Bullet(Vector2 sentLocation, Vector2 destination) {
 
-        bulletTexture = new Texture("bullet.png");
         bulletSprite = new Sprite(bulletTexture);
         bulletSprite.setSize(32, 16);
         setBounds(sentLocation.x + bulletSprite.getWidth() / 2f, sentLocation.y + bulletSprite
@@ -44,9 +41,6 @@ public class Bullet extends Actor {
         setPosition(getX() + velx * speed * delta, getY() + vely * speed * delta);
     }
 
-    public Vector2 getBulletVelocity() {
-        return bulletVelocity;
-    }
 
     private void setBulletDestination() {
         velx = target.x - getX();

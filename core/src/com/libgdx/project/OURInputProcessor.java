@@ -5,21 +5,24 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import sun.management.Sensor;
 
-import static com.libgdx.project.PlayerSpaceship.ACCELERATION_X;
-import static com.libgdx.project.PlayerSpaceship.ACCELERATION_Y;
+import com.libgdx.project.Actors.PlayerSpaceship;
+import com.libgdx.project.Actors.Bullet;
+
+import static com.libgdx.project.Actors.PlayerSpaceship.ACCELERATION_X;
+import static com.libgdx.project.Actors.PlayerSpaceship.ACCELERATION_Y;
 
 /**
  * Created by dotre on 03.11.2017.
  */
 public class OURInputProcessor implements InputProcessor {
 
-    PlayerSpaceship spaceship;
+    private PlayerSpaceship spaceship;
 
-    OURInputProcessor(PlayerSpaceship spaceship) {
+    public OURInputProcessor(PlayerSpaceship spaceship) {
         this.spaceship = spaceship;
     }
+
 
     @Override
     public boolean keyDown(int keycode) {
@@ -64,7 +67,7 @@ public class OURInputProcessor implements InputProcessor {
         Bullet bullet = new Bullet(new Vector2(spaceship.getX(), spaceship.getY() + spaceship.spaceshipSprite
                 .getHeight() / 2f), new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
         float rot = MathUtils.radiansToDegrees * MathUtils
-                .atan2(-screenY +spaceship.getY(), screenX - spaceship.getX());
+                .atan2(-screenY + spaceship.getY(), screenX - spaceship.getX());
         spaceship.setRotation(rot);
         bullet.setRotation(spaceship.getRotation());
         spaceship.bullets.add(bullet);

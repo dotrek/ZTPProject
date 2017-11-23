@@ -1,4 +1,4 @@
-package com.libgdx.project;
+package com.libgdx.project.Screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,12 +8,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.libgdx.project.*;
+import com.libgdx.project.Actors.*;
+import com.libgdx.project.Actors.Bullet;
+import com.libgdx.project.Actors.Enemy;
+import com.libgdx.project.Actors.PlayerSpaceship;
 
 import java.util.ArrayList;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
 
-public class MyGdxGame implements Screen {
+public class GameScreen implements Screen {
 
     final GameClass game;
     public static float delta;
@@ -26,7 +31,7 @@ public class MyGdxGame implements Screen {
     EnemyGenerator enemyGenerator;
     boolean gameover;
 
-    MyGdxGame(GameClass game) {
+    GameScreen(GameClass game) {
         this.game = game;
         delta = Gdx.graphics.getDeltaTime();
         stage = new Stage();
@@ -96,8 +101,8 @@ public class MyGdxGame implements Screen {
 
     private void shooting() {
         int counter = 0;
-        while (counter < playerSpaceship.bullets.size()) {
-            Bullet currentBullet = playerSpaceship.bullets.get(counter);
+        while (counter < playerSpaceship.getBullets().size()) {
+            Bullet currentBullet = playerSpaceship.getBullets().get(counter);
             stage.addActor(currentBullet);
             currentBullet.update(Gdx.graphics.getDeltaTime());
             if (currentBullet.getX() > -50 && currentBullet.getX() < Gdx.graphics.getWidth() + 50 && currentBullet
@@ -106,8 +111,8 @@ public class MyGdxGame implements Screen {
                 checkCollision(currentBullet);
 
             } else {
-                playerSpaceship.bullets.remove(counter);
-                if (playerSpaceship.bullets.size() > 0) {
+                playerSpaceship.getBullets().remove(counter);
+                if (playerSpaceship.getBullets().size() > 0) {
                     counter--;
                 }
             }
@@ -116,7 +121,7 @@ public class MyGdxGame implements Screen {
         }
     }
 
-    private void checkCollision(Bullet bullet) {
+    private void checkCollision(com.libgdx.project.Actors.Bullet bullet) {
 
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).spaceshipSprite.getBoundingRectangle()
@@ -142,7 +147,7 @@ public class MyGdxGame implements Screen {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).spaceshipSprite.getBoundingRectangle()
                                               .overlaps(playerSpaceship.spaceshipSprite.getBoundingRectangle())) {
-                game.setScreen(new GameOverScreen(game));
+                game.setScreen(new com.libgdx.project.Screen.GameOverScreen(game));
                 Gdx.input.vibrate(2000);
             }
         }

@@ -1,4 +1,4 @@
-package com.libgdx.project;
+package com.libgdx.project.Actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,12 +10,12 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Enemy extends Spaceship {
 
-    private static final Texture texture = new Texture("enemy.png");
+    protected static Texture texture = new Texture("enemy.png");
     PlayerSpaceship playerInstance;
     private Vector2 moveVelocity;
     private double distanceToPlayer;
 
-    Enemy() {
+    public Enemy() {
         super();
         spaceshipSprite = new Sprite(texture);
         spaceshipSprite.setSize(Gdx.graphics.getWidth() / 12.5f, Gdx.graphics.getHeight() / 9f);
@@ -33,7 +33,7 @@ public class Enemy extends Spaceship {
     }
 
     private void update(float delta) {
-        playerInstance = PlayerSpaceship.getInstance();
+        playerInstance = com.libgdx.project.Actors.PlayerSpaceship.getInstance();
 //        System.out.println(playerInstance.getX() + "\t" + playerInstance.getY() + "\t \t " + getX() + "  " + getY());
         moveVelocity.x = (playerInstance.getX() - this.getX());
         moveVelocity.y = (playerInstance.getY() - this.getY());

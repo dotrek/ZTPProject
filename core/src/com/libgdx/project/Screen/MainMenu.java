@@ -1,4 +1,4 @@
-package com.libgdx.project;
+package com.libgdx.project.Screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.widget.VisDialog;
+import com.libgdx.project.GameClass;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
 
@@ -22,7 +23,7 @@ public class MainMenu implements Screen {
     Skin skin;
     Stage stage;
 
-    MainMenu(GameClass game) {
+    public MainMenu(GameClass game) {
         this.game = game;
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         stage = new Stage();
@@ -50,7 +51,7 @@ public class MainMenu implements Screen {
         start.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreenWithFade(new MyGdxGame(game), 3f);
+                game.setScreenWithFade(new GameScreen(game), 3f);
             }
         });
         exit.addListener(new ClickListener() {

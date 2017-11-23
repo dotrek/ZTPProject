@@ -1,4 +1,4 @@
-package com.libgdx.project;
+package com.libgdx.project.Screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.libgdx.project.GameClass;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
 
@@ -67,7 +68,7 @@ public class GameOverScreen implements Screen {
         again.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MyGdxGame(game));
+                game.setScreen(new GameScreen(game));
             }
         });
     }

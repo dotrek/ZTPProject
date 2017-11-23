@@ -1,10 +1,12 @@
-package com.libgdx.project;
+package com.libgdx.project.Actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.widget.VisProgressBar;
+
+import com.libgdx.project.Actors.Bullet;
 
 import java.util.ArrayList;
 
@@ -13,17 +15,18 @@ import java.util.ArrayList;
  */
 public class Spaceship extends Actor {
 
-    Sprite spaceshipSprite;
-    int health;
-    VisProgressBar progressBar;
-    float speed;
-    ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+    public Sprite spaceshipSprite;
+    public int health;
+
+    private VisProgressBar healthBar;
+    protected float speed;
+    public ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
     public Spaceship() {
         this.spaceshipSprite = new Sprite();
         setBounds(0, 0, Gdx.graphics.getWidth() / 12.5f, Gdx.graphics.getHeight() / 9f);
         this.health = 10;
-        progressBar = new VisProgressBar(0, health, 1f, false);
+        healthBar = new VisProgressBar(0, health, 1f, false);
         speed = 10f;
         this.bullets = new ArrayList<Bullet>();
     }
@@ -37,14 +40,19 @@ public class Spaceship extends Actor {
 
     private void update() {
         this.spaceshipSprite.setPosition(getX(), getY());
-        this.progressBar.setBounds(getX(), getY()-progressBar.getHeight()*2,spaceshipSprite.getWidth(),1f);
-        progressBar.setValue(health);
+        this.healthBar.setBounds(getX(), getY() - healthBar.getHeight() * 2, spaceshipSprite.getWidth(), 1f);
+        healthBar.setValue(health);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         update();
         batch.draw(spaceshipSprite, this.getX(), this.getY(), getWidth(), getHeight());
-        progressBar.draw(batch, parentAlpha);
+        healthBar.draw(batch, parentAlpha);
+    }
+
+
+    public ArrayList<Bullet> getBullets() {
+        return bullets;
     }
 }
