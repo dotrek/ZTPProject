@@ -64,8 +64,10 @@ public class GameOverScreen implements Screen {
         again.setSize(width / 4f, height / 12f);
         again.setPosition(width - again.getWidth(), 0);
         again.getLabel().setFontScale(Math.abs(width / 800), Math.abs(height / 600));
+
         scoreLabel.setFontScale(Math.abs(width / 800), Math.abs(height / 600));
-        scoreLabel.setPosition(width - scoreLabel.getWidth() * 2f, height - scoreLabel.getHeight());
+        scoreLabel.setPosition(width - scoreLabel.getWidth(), height - scoreLabel.getHeight());
+
         gameOverLabel.setSize(width, height / 3f);
         gameOverLabel.setPosition(0, height - gameOverLabel.getHeight());
         gameOverLabel.setFontScale(5f);

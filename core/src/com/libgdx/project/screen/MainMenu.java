@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.widget.VisDialog;
 import com.libgdx.project.GameClass;
 
@@ -44,19 +45,19 @@ public class MainMenu implements Screen {
     private void setButtonBounds() {
         start.setSize(width, height / 12);
         start.getLabel().setSize(start.getWidth(), start.getHeight());
-        start.getLabel().setFontScale(width / start.getLabel().getFontScaleX() / 800, height / start.getLabel()
-                                                                                                    .getFontScaleY() / 600);
+        start.getLabel().setFontScale(width / start.getLabel().getFontScaleX() / 800,
+                height / start.getLabel().getFontScaleY() / 600);
 
         info.setSize(width, height / 12);
         info.getLabel().setSize(info.getWidth(), info.getHeight());
-        info.getLabel().setFontScale(width / info.getLabel().getFontScaleX() / 800, height / info.getLabel()
-                                                                                                 .getFontScaleY() / 600);
+        info.getLabel().setFontScale(width / info.getLabel().getFontScaleX() / 800,
+                height / info.getLabel().getFontScaleY() / 600);
 
 
         exit.setSize(width, height / 12);
         exit.getLabel().setSize(exit.getWidth(), exit.getHeight());
-        exit.getLabel().setFontScale(width / exit.getLabel().getFontScaleX() / 800, height / exit.getLabel()
-                                                                                                 .getFontScaleY() / 600);
+        exit.getLabel().setFontScale(width / exit.getLabel().getFontScaleX() / 800,
+                height / exit.getLabel().getFontScaleY() / 600);
 
 
         start.setPosition(0, height / 2f);
@@ -80,10 +81,8 @@ public class MainMenu implements Screen {
         info.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                VisDialog dialog = new VisDialog("Game for ztp project");
-                dialog.setSize(width / 3f, height / 6f);
-                dialog.addCloseButton();
-                dialog.show(stage);
+                Dialogs.showOKDialog(stage, "Information",
+                        "Multiplatform game (desktop and android) \n made in " + "libGDX");
             }
         });
     }
