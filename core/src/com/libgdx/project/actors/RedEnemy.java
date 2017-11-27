@@ -12,5 +12,6 @@ public class RedEnemy extends Enemy {
     public RedEnemy() {
         super();
         spaceshipSprite.setTexture(texture);
+        speed *= 3f;
     }
 }

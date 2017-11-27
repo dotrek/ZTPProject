@@ -40,8 +40,12 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
         loadAssets();
         score = 0;
+
         scoreLabel = new VisLabel("Score: " + Integer.toString(score));
-        scoreLabel.setPosition(Gdx.graphics.getWidth() - scoreLabel.getWidth(), Gdx.graphics.getHeight());
+        scoreLabel.setSize(Math.abs(Gdx.graphics.getWidth() / 800), Math.abs(Gdx.graphics.getHeight() / 600));
+        scoreLabel.setPosition(Gdx.graphics.getWidth() - scoreLabel.getWidth(), Gdx.graphics.getHeight() - scoreLabel
+                .getHeight());
+
         backgroundSprite = new Sprite(background);
         backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -63,6 +67,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.input.setInputProcessor(new OURInputProcessor(playerSpaceship));
+        scoreLabel.setX(Gdx.graphics.getWidth() - scoreLabel.getWidth());
         scoreLabel.setText("Score: " + Integer.toString(score));
         game.batch.begin();
         drawBackground();

@@ -36,6 +36,8 @@ public class GameClass extends Game {
         points = 0;
         pointsLabel = new VisLabel("Points: " + Integer.toString(points));
         pointsLabel.setPosition(0, Gdx.graphics.getHeight() - pointsLabel.getHeight());
+        pointsLabel.setScale(Math.abs(Gdx.graphics.getWidth() / 800), Math.abs(Gdx.graphics.getHeight() / 600));
+        pointsLabel.setFontScale(Gdx.graphics.getWidth() / 800, Gdx.graphics.getHeight() / 600);
         this.setScreen(new MainMenu(this));
     }
 

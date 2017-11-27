@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.libgdx.project.GameClass;
@@ -45,14 +46,7 @@ public class GameOverScreen implements Screen {
         scoreLabel = new VisLabel("You scored: " + scored);
 
 
-        menu.setPosition(0, 0);
-        again.setPosition(width - again.getWidth(), 0);
-        scoreLabel.setPosition(width - scoreLabel.getWidth() * 2f, height - scoreLabel.getHeight());
-
-        gameOverLabel.setSize(width, height / 3f);
-        gameOverLabel.setPosition(0, height - gameOverLabel.getHeight());
-        gameOverLabel.setFontScale(5f);
-        gameOverLabel.setAlignment(Alignment.CENTER.getAlignment());
+        setActorsPositions();
         stage = new Stage();
         stage.addActor(menu);
         stage.addActor(again);
@@ -60,6 +54,23 @@ public class GameOverScreen implements Screen {
         stage.addActor(game.pointsLabel);
         stage.addActor(scoreLabel);
         Gdx.input.setInputProcessor(stage);
+    }
+
+    private void setActorsPositions() {
+        menu.setSize(width / 4f, height / 12f);
+        menu.setPosition(0, 0);
+        menu.getLabel().setFontScale(Math.abs(width / 800), Math.abs(height / 600));
+
+        again.setSize(width / 4f, height / 12f);
+        again.setPosition(width - again.getWidth(), 0);
+        again.getLabel().setFontScale(Math.abs(width / 800), Math.abs(height / 600));
+        scoreLabel.setFontScale(Math.abs(width / 800), Math.abs(height / 600));
+        scoreLabel.setPosition(width - scoreLabel.getWidth() * 2f, height - scoreLabel.getHeight());
+        gameOverLabel.setSize(width, height / 3f);
+        gameOverLabel.setPosition(0, height - gameOverLabel.getHeight());
+        gameOverLabel.setFontScale(5f);
+        gameOverLabel.setAlignment(Alignment.CENTER.getAlignment());
+
     }
 
     @Override

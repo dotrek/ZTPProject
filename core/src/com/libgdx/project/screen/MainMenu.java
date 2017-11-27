@@ -22,6 +22,8 @@ public class MainMenu implements Screen {
     TextButton start, info, exit;
     Skin skin;
     Stage stage;
+    float width = Gdx.graphics.getWidth();
+    float height = Gdx.graphics.getHeight();
 
     public MainMenu(GameClass game) {
         this.game = game;
@@ -40,10 +42,24 @@ public class MainMenu implements Screen {
     }
 
     private void setButtonBounds() {
-        start.setSize(Gdx.graphics.getWidth(), start.getHeight());
-        info.setSize(Gdx.graphics.getWidth(), info.getHeight());
-        exit.setSize(Gdx.graphics.getWidth(), exit.getHeight());
-        start.setPosition(0, Gdx.graphics.getHeight() / 2f);
+        start.setSize(width, height / 12);
+        start.getLabel().setSize(start.getWidth(), start.getHeight());
+        start.getLabel().setFontScale(width / start.getLabel().getFontScaleX() / 800, height / start.getLabel()
+                                                                                                    .getFontScaleY() / 600);
+
+        info.setSize(width, height / 12);
+        info.getLabel().setSize(info.getWidth(), info.getHeight());
+        info.getLabel().setFontScale(width / info.getLabel().getFontScaleX() / 800, height / info.getLabel()
+                                                                                                 .getFontScaleY() / 600);
+
+
+        exit.setSize(width, height / 12);
+        exit.getLabel().setSize(exit.getWidth(), exit.getHeight());
+        exit.getLabel().setFontScale(width / exit.getLabel().getFontScaleX() / 800, height / exit.getLabel()
+                                                                                                 .getFontScaleY() / 600);
+
+
+        start.setPosition(0, height / 2f);
         info.setPosition(0, start.getY() - start.getHeight());
         exit.setPosition(0, info.getY() - info.getHeight());
     }
@@ -65,7 +81,7 @@ public class MainMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 VisDialog dialog = new VisDialog("Game for ztp project");
-                dialog.setSize(Gdx.graphics.getWidth() / 3f, Gdx.graphics.getHeight() / 6f);
+                dialog.setSize(width / 3f, height / 6f);
                 dialog.addCloseButton();
                 dialog.show(stage);
             }
