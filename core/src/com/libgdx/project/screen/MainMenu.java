@@ -33,6 +33,7 @@ public class MainMenu implements Screen {
         stage.addActor(start);
         stage.addActor(info);
         stage.addActor(exit);
+        stage.addActor(game.pointsLabel);
         Gdx.input.setInputProcessor(stage);
         setButtonBounds();
         setButtonClickListeners();

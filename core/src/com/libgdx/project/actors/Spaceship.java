@@ -16,7 +16,7 @@ public class Spaceship extends Actor {
     public Sprite spaceshipSprite;
     public int health;
 
-    private VisProgressBar healthBar;
+    VisProgressBar healthBar;
     protected float speed;
     public ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 

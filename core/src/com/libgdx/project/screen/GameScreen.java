@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.libgdx.project.*;
 import com.libgdx.project.actors.Bullet;
 import com.libgdx.project.actors.Enemy;
@@ -21,6 +22,8 @@ public class GameScreen implements Screen {
 
     final GameClass game;
     public static float delta;
+    public int score;
+    VisLabel scoreLabel;
     Texture background;
     PlayerSpaceship playerSpaceship;
     ArrayList<Enemy> enemies;
@@ -36,6 +39,9 @@ public class GameScreen implements Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         loadAssets();
+        score = 0;
+        scoreLabel = new VisLabel("Score: " + Integer.toString(score));
+        scoreLabel.setPosition(Gdx.graphics.getWidth() - scoreLabel.getWidth(), Gdx.graphics.getHeight());
         backgroundSprite = new Sprite(background);
         backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -44,6 +50,7 @@ public class GameScreen implements Screen {
         enemyGenerator = new EnemyGenerator(10, 5f, enemies);
         stage.addActor(playerSpaceship);
         stage.addActor(enemyGenerator);
+        stage.addActor(scoreLabel);
         gameover = false;
     }
 
@@ -56,6 +63,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.input.setInputProcessor(new OURInputProcessor(playerSpaceship));
+        scoreLabel.setText("Score: " + Integer.toString(score));
         game.batch.begin();
         drawBackground();
         game.batch.end();
@@ -120,7 +128,7 @@ public class GameScreen implements Screen {
         }
     }
 
-    private void checkCollision(com.libgdx.project.actors.Bullet bullet) {
+    private void checkCollision(Bullet bullet) {
 
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).spaceshipSprite.getBoundingRectangle()
@@ -137,6 +145,7 @@ public class GameScreen implements Screen {
             if (enemies.get(i).health <= 0) {
                 enemies.get(i).addAction(Actions.removeActor());
                 enemies.remove(i);
+                score++;
                 hitSound.play();
             }
         }
@@ -146,7 +155,7 @@ public class GameScreen implements Screen {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).spaceshipSprite.getBoundingRectangle()
                                               .overlaps(playerSpaceship.spaceshipSprite.getBoundingRectangle())) {
-                game.setScreen(new com.libgdx.project.screen.GameOverScreen(game));
+                game.setScreen(new GameOverScreen(game, score));
                 Gdx.input.vibrate(2000);
             }
         }

@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.libgdx.project.actors.BigBlueEnemy;
-import com.libgdx.project.actors.Enemy;
-import com.libgdx.project.actors.PurpleEnemy;
-import com.libgdx.project.actors.GreenEnemy;
+import com.libgdx.project.actors.*;
 
 /**
  * Created by dotre on 17.11.2017.
@@ -58,7 +55,7 @@ public class EnemyGenerator extends Actor {
 
     private Enemy getRandomSpawnLocation() {
         Random r = new Random();
-        Enemy enemy = getRandomEnemy(r.nextInt(4));
+        Enemy enemy = getRandomEnemy(r.nextInt(5));
         float height = Gdx.graphics.getHeight();
         float width = Gdx.graphics.getWidth();
         switch (r.nextInt(4)) {
@@ -88,6 +85,8 @@ public class EnemyGenerator extends Actor {
                 return new GreenEnemy();
             case 3:
                 return new BigBlueEnemy();
+            case 4:
+                return new RedEnemy();
         }
         return new Enemy();
     }

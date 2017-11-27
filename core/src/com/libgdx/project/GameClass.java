@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.kotcrab.vis.ui.VisUI;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.libgdx.project.screen.*;
 
 /**
@@ -20,6 +21,8 @@ import com.libgdx.project.screen.*;
 public class GameClass extends Game {
 
     public SpriteBatch batch;
+    public int points;
+    public VisLabel pointsLabel;
     Actor fadeActor = new Actor();
     ShapeRenderer fadeRenderer;
     AssetManager assets;
@@ -30,6 +33,9 @@ public class GameClass extends Game {
         batch = new SpriteBatch();
         fadeRenderer = new ShapeRenderer();
         assets = new AssetManager();
+        points = 0;
+        pointsLabel = new VisLabel("Points: " + Integer.toString(points));
+        pointsLabel.setPosition(0, Gdx.graphics.getHeight() - pointsLabel.getHeight());
         this.setScreen(new MainMenu(this));
     }
 
@@ -49,6 +55,7 @@ public class GameClass extends Game {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         super.render();
+        pointsLabel.setText("Points: " + Integer.toString(points));
         batch.begin();
         fadeActor.act(Gdx.graphics.getDeltaTime());
         batch.end();
