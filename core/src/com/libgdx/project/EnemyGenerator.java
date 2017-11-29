@@ -76,18 +76,18 @@ public class EnemyGenerator extends Actor {
     }
 
     private Enemy getRandomEnemy(int x) {
-        switch (x) {
-            case 0:
-                return new Enemy();
-            case 1:
-                return new PurpleEnemy();
-            case 2:
-                return new GreenEnemy();
-            case 3:
-                return new BigBlueEnemy();
-            case 4:
-                return new RedEnemy();
-        }
-        return new Enemy();
+//        switch (x) {
+//            case 0:
+//                return new BlueEnemy();
+//            case 1:
+//                return new PurpleEnemy();
+//            case 2:
+//                return new GreenEnemy();
+//            case 3:
+//                return new BigBlueEnemy();
+//            case 4:
+//                return new RedEnemy();
+//        }
+        return new GreenEnemy();
     }
 }

@@ -8,12 +8,12 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by dotre on 04.11.2017.
  */
-public class Enemy extends Spaceship {
+public abstract class Enemy extends Spaceship {
 
     protected static Texture texture = new Texture("enemy.png");
     PlayerSpaceship playerInstance;
-    private Vector2 moveVelocity;
-    private double distanceToPlayer;
+    Vector2 moveVelocity;
+    float distanceToPlayer;
 
     public Enemy() {
         super();
@@ -21,6 +21,7 @@ public class Enemy extends Spaceship {
         spaceshipSprite.setSize(Gdx.graphics.getWidth() / 12.5f, Gdx.graphics.getHeight() / 9f);
         speed = 30f;
         moveVelocity = new Vector2();
+        playerInstance = PlayerSpaceship.getInstance();
     }
 
     Enemy(float positionX, float positionY) {
@@ -32,16 +33,7 @@ public class Enemy extends Spaceship {
         setPosition(positionX, positionY);
     }
 
-    private void update(float delta) {
-        playerInstance = PlayerSpaceship.getInstance();
-//        System.out.println(playerInstance.getX() + "\t" + playerInstance.getY() + "\t \t " + getX() + "  " + getY());
-        moveVelocity.x = (playerInstance.getX() - this.getX());
-        moveVelocity.y = (playerInstance.getY() - this.getY());
-        distanceToPlayer = Math.sqrt(moveVelocity.x * moveVelocity.x + moveVelocity.y * moveVelocity.y);
-        moveVelocity.x /= distanceToPlayer;
-        moveVelocity.y /= distanceToPlayer;
-        this.setPosition(getX() + moveVelocity.x * speed * delta, getY() + moveVelocity.y * speed * delta);
-    }
+    public abstract void update(float delta);
 
     @Override
     public void act(float delta) {
