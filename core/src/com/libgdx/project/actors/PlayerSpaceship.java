@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class PlayerSpaceship extends com.libgdx.project.actors.Spaceship {
 
     private static PlayerSpaceship instance;
-    public static final float ACCELERATION_X = 50f;
-    public static final float ACCELERATION_Y = 50f;
+    public static final float ACCELERATION_X = 100f;
+    public static final float ACCELERATION_Y = 100f;
     private static final float MAX_VELOCITY = 300f;
     private static final Texture texture = new Texture("spaceship.png");
 
@@ -142,7 +142,7 @@ public class PlayerSpaceship extends com.libgdx.project.actors.Spaceship {
         desktopMovement(Gdx.graphics.getDeltaTime());
         androidMovement();
         setOrigin(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
-        Gdx.app.log("spaceship origin", String.valueOf(getY()));
+        spaceshipSprite.getBoundingRectangle().set(getX(), getY(), getWidth() / 2f, getHeight() / 2f);
         shooting();
         spaceshipSprite.draw(batch, parentAlpha);
     }

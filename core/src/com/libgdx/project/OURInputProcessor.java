@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.libgdx.project.actors.PlayerBullet;
 import com.libgdx.project.actors.PlayerSpaceship;
 import com.libgdx.project.actors.Bullet;
 
@@ -65,7 +66,7 @@ public class OURInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Bullet bullet = new Bullet(new Vector2(spaceship.getOriginX(), spaceship.getOriginY()),
+        Bullet bullet = new PlayerBullet(new Vector2(spaceship.getOriginX(), spaceship.getOriginY()),
                 new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
         rotate(spaceship);
         rotate(bullet);

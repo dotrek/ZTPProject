@@ -31,7 +31,8 @@ public class GameScreen implements Screen {
     Stage stage;
     Sound hitSound;
     EnemyGenerator enemyGenerator;
-    boolean gameover;
+    public static boolean gameOver;
+
 
     GameScreen(GameClass game) {
         this.game = game;
@@ -55,7 +56,7 @@ public class GameScreen implements Screen {
         stage.addActor(playerSpaceship);
         stage.addActor(enemyGenerator);
         stage.addActor(scoreLabel);
-        gameover = false;
+        gameOver = false;
     }
 
     private void drawBackground() {
@@ -69,13 +70,14 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(new OURInputProcessor(playerSpaceship));
         scoreLabel.setX(Gdx.graphics.getWidth() / 2f - scoreLabel.getWidth() / 2f);
         scoreLabel.setText("Score: " + Integer.toString(score));
+        checkGameOver();
         game.batch.begin();
         drawBackground();
         game.batch.end();
         stage.act();
+        checkIfPlayerDead();
         checkIfEnemyDead();
         stage.draw();
-        checkIfPlayerDead();
     }
 
     @Override
@@ -110,7 +112,6 @@ public class GameScreen implements Screen {
     }
 
 
-
     private void checkIfEnemyDead() {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).health <= 0) {
@@ -126,12 +127,17 @@ public class GameScreen implements Screen {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).spaceshipSprite.getBoundingRectangle()
                                               .overlaps(playerSpaceship.spaceshipSprite.getBoundingRectangle())) {
-                game.setScreen(new GameOverScreen(game, score));
-                Gdx.input.vibrate(2000);
+                gameOver = true;
             }
         }
     }
 
+    public void checkGameOver() {
+        if (gameOver) {
+            game.setScreen(new GameOverScreen(game, score));
+            Gdx.input.vibrate(2000);
+        }
+    }
 
     private void loadAssets() {
         background = new Texture("background.jpg");

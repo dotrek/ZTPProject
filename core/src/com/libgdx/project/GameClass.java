@@ -44,8 +44,8 @@ public class GameClass extends Game {
     public void setScreenWithFade(final Screen screen, float duration) {
         fadeActor.clearActions();
         fadeActor.setColor(Color.CLEAR);
-        fadeActor.addAction(Actions
-                .sequence(Actions.color(Color.BLACK, duration / 2f, Interpolation.fade), Actions.run(new Runnable() {
+        fadeActor.addAction(Actions.sequence(Actions.color(Color.BLACK, duration / 2f, Interpolation.fade),
+                Actions.run(new Runnable() {
                     public void run() {
                         setScreen(screen);
                     }
@@ -69,6 +69,8 @@ public class GameClass extends Game {
             fadeRenderer.end();
         }
     }
+
+
 
     @Override
     public void dispose() {

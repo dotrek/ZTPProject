@@ -38,6 +38,7 @@ public abstract class Enemy extends Spaceship {
     @Override
     public void act(float delta) {
         update(delta);
+        spaceshipSprite.getBoundingRectangle().set(getX(), getY(), getWidth() / 2f, getHeight() / 2f);
         super.act(delta);
     }
 }

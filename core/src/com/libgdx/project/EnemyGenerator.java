@@ -45,7 +45,7 @@ public class EnemyGenerator extends Actor {
     @Override
     public void act(float delta) {
         if (deltaTimer >= frequency) {
-            com.libgdx.project.actors.Enemy e = getRandomSpawnLocation();
+            Enemy e = getRandomSpawnLocation();
             enemies.add(e);
             getStage().addActor(enemies.get(enemies.indexOf(e)));
             deltaTimer = 0;
@@ -88,6 +88,6 @@ public class EnemyGenerator extends Actor {
 //            case 4:
 //                return new RedEnemy();
 //        }
-        return new GreenEnemy();
+        return new PurpleEnemy();
     }
 }

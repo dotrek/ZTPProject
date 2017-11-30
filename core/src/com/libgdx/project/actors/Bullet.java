@@ -12,19 +12,20 @@ import com.libgdx.project.screen.GameScreen;
 /**
  * Created by dotre on 24.10.2017.
  */
-public class Bullet extends Actor {
+public abstract class Bullet extends Actor {
 
     private Vector2 target;
     private static Texture bulletTexture = new Texture("bullet.png");
     public Sprite bulletSprite;
     private int damage;
     float velx, vely;
-    private static float speed = 200f;
+    float speed = 200f;
 
     public Bullet(Vector2 sentLocation, Vector2 destination) {
 
         bulletSprite = new Sprite(bulletTexture);
         bulletSprite.setSize(32, 16);
+        bulletSprite.getBoundingRectangle().setSize(32, 16);
         setBounds(sentLocation.x + bulletSprite.getWidth() / 2f, sentLocation.y + bulletSprite.getHeight() / 2f,
                 bulletSprite.getWidth(), bulletSprite.getHeight());
         bulletSprite.setOrigin(bulletSprite.getWidth() / 2f, bulletSprite.getHeight() / 2f);
@@ -39,7 +40,8 @@ public class Bullet extends Actor {
     public void update(float delta) {
 //        bulletVelocity.set(target.x - getX(), target.y - getY()).nor().scl(Math.min(new Vector2
 //                (getX(), getY()).dst(target), speed));
-
+        System.out.println(bulletSprite.getBoundingRectangle().getWidth() + "\t" + bulletSprite.getBoundingRectangle()
+                                                                                               .getHeight());
         setPosition(getX() + velx * speed * delta, getY() + vely * speed * delta);
     }
 
@@ -58,11 +60,13 @@ public class Bullet extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         update(Gdx.graphics.getDeltaTime());
-        checkCollision();
         bulletSprite.setPosition(getX(), getY());
         bulletSprite.setRotation(getRotation());
         bulletSprite.draw(batch, parentAlpha);
+        checkCollision();
     }
+
+    public abstract void checkCollision();
 
     public int getDamage() {
         return damage;
@@ -72,14 +76,5 @@ public class Bullet extends Actor {
         this.damage = damage;
     }
 
-    private void checkCollision() {
-        for (int i = 0; i < GameScreen.enemies.size(); i++) {
-            if (GameScreen.enemies.get(i).spaceshipSprite.getBoundingRectangle()
-                                                         .overlaps(this.bulletSprite.getBoundingRectangle())) {
-                GameScreen.enemies.get(i).health -= this.getDamage();
-                PlayerSpaceship.getInstance().getBullets().remove(this);
-                getStage().addAction(Actions.removeActor(this));
-            }
-        }
-    }
+
 }
