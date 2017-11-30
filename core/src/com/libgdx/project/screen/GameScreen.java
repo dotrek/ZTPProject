@@ -26,7 +26,7 @@ public class GameScreen implements Screen {
     VisLabel scoreLabel;
     Texture background;
     PlayerSpaceship playerSpaceship;
-    ArrayList<Enemy> enemies;
+    public static ArrayList<Enemy> enemies;
     Sprite backgroundSprite;
     Stage stage;
     Sound hitSound;
@@ -74,8 +74,6 @@ public class GameScreen implements Screen {
         game.batch.end();
         stage.act();
         checkIfEnemyDead();
-        shooting();
-        playerSpaceship.desktopMovement(Gdx.graphics.getDeltaTime());
         stage.draw();
         checkIfPlayerDead();
     }
@@ -111,39 +109,7 @@ public class GameScreen implements Screen {
         game.batch.dispose();
     }
 
-    private void shooting() {
-        int counter = 0;
-        while (counter < playerSpaceship.getBullets().size()) {
-            Bullet currentBullet = playerSpaceship.getBullets().get(counter);
-            stage.addActor(currentBullet);
-            currentBullet.update(Gdx.graphics.getDeltaTime());
-            if (currentBullet.getX() > -50 && currentBullet.getX() < Gdx.graphics.getWidth() + 50 && currentBullet
-                    .getY() > -50 && currentBullet.getY() < Gdx.graphics.getHeight() + 50) {
-                currentBullet.act(delta);
-                checkCollision(currentBullet);
 
-            } else {
-                playerSpaceship.getBullets().remove(counter);
-                if (playerSpaceship.getBullets().size() > 0) {
-                    counter--;
-                }
-            }
-
-            counter++;
-        }
-    }
-
-    private void checkCollision(Bullet bullet) {
-
-        for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).spaceshipSprite.getBoundingRectangle()
-                                              .overlaps(bullet.bulletSprite.getBoundingRectangle())) {
-                enemies.get(i).health -= bullet.getDamage();
-                bullet.addAction(Actions.removeActor());
-                if (playerSpaceship.bullets.contains(bullet)) playerSpaceship.bullets.remove(bullet);
-            }
-        }
-    }
 
     private void checkIfEnemyDead() {
         for (int i = 0; i < enemies.size(); i++) {

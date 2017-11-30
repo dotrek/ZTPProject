@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.libgdx.project.screen.GameScreen;
 
 /**
  * Created by dotre on 24.10.2017.
@@ -23,8 +25,8 @@ public class Bullet extends Actor {
 
         bulletSprite = new Sprite(bulletTexture);
         bulletSprite.setSize(32, 16);
-        setBounds(sentLocation.x + bulletSprite.getWidth() / 2f, sentLocation.y + bulletSprite
-                .getHeight() / 2f, bulletSprite.getWidth(), bulletSprite.getHeight());
+        setBounds(sentLocation.x + bulletSprite.getWidth() / 2f, sentLocation.y + bulletSprite.getHeight() / 2f,
+                bulletSprite.getWidth(), bulletSprite.getHeight());
         bulletSprite.setOrigin(bulletSprite.getWidth() / 2f, bulletSprite.getHeight() / 2f);
         this.setPosition(sentLocation.x, sentLocation.y);
         target = new Vector2(destination.x, destination.y);
@@ -52,9 +54,11 @@ public class Bullet extends Actor {
         }
     }
 
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         update(Gdx.graphics.getDeltaTime());
+        checkCollision();
         bulletSprite.setPosition(getX(), getY());
         bulletSprite.setRotation(getRotation());
         bulletSprite.draw(batch, parentAlpha);
@@ -66,5 +70,16 @@ public class Bullet extends Actor {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    private void checkCollision() {
+        for (int i = 0; i < GameScreen.enemies.size(); i++) {
+            if (GameScreen.enemies.get(i).spaceshipSprite.getBoundingRectangle()
+                                                         .overlaps(this.bulletSprite.getBoundingRectangle())) {
+                GameScreen.enemies.get(i).health -= this.getDamage();
+                PlayerSpaceship.getInstance().getBullets().remove(this);
+                getStage().addAction(Actions.removeActor(this));
+            }
+        }
     }
 }

@@ -29,15 +29,9 @@ public class Spaceship extends Actor {
         this.bullets = new ArrayList<Bullet>();
     }
 
-    public Spaceship(Sprite spaceshipSprite, int health) {
-        this.spaceshipSprite = spaceshipSprite;
-        setBounds(0, 0, spaceshipSprite.getWidth(), spaceshipSprite.getHeight());
-        this.health = health;
-        this.bullets = new ArrayList<Bullet>();
-    }
-
     private void update() {
         this.spaceshipSprite.setPosition(getX(), getY());
+        this.setOrigin(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
         this.healthBar.setBounds(getX(), getY() - healthBar.getHeight() * 2, spaceshipSprite.getWidth(), 1f);
         healthBar.setValue(health);
     }

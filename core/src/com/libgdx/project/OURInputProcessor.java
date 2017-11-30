@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.libgdx.project.actors.PlayerSpaceship;
 import com.libgdx.project.actors.Bullet;
 
@@ -64,12 +65,10 @@ public class OURInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Bullet bullet = new Bullet(new Vector2(spaceship.getX(), spaceship.getY() + spaceship.spaceshipSprite
-                .getHeight() / 2f), new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-        float rot = MathUtils.radiansToDegrees * MathUtils
-                .atan2(-screenY + spaceship.getY(), screenX - spaceship.getX());
-        spaceship.setRotation(rot);
-        bullet.setRotation(spaceship.getRotation());
+        Bullet bullet = new Bullet(new Vector2(spaceship.getOriginX(), spaceship.getOriginY()),
+                new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+        rotate(spaceship);
+        rotate(bullet);
         spaceship.bullets.add(bullet);
         spaceship.sound.play();
         Gdx.input.vibrate(100);
@@ -89,11 +88,15 @@ public class OURInputProcessor implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        float mouseX = Gdx.input.getX();
-        float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-        float rot = MathUtils.radiansToDegrees * MathUtils.atan2(mouseY - spaceship.getY(), mouseX - spaceship.getX());
-        spaceship.setRotation(rot);
+        rotate(spaceship);
         return true;
+    }
+
+    private void rotate(Actor actor) {
+        float x = Gdx.input.getX();
+        float y = Gdx.graphics.getHeight() - Gdx.input.getY();
+        float rot = MathUtils.radiansToDegrees * MathUtils.atan2(y - actor.getY(), x - actor.getX());
+        actor.setRotation(rot);
     }
 
     @Override

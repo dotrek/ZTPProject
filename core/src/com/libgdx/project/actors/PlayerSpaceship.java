@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
 
@@ -52,8 +53,8 @@ public class PlayerSpaceship extends com.libgdx.project.actors.Spaceship {
         super();
         this.spaceshipSprite = new Sprite(texture);
         this.spaceshipSprite.setSize(Gdx.graphics.getWidth() / 12.5f, Gdx.graphics.getHeight() / 9f);
-        setPosition(Gdx.graphics.getWidth() / 2f - spaceshipSprite.getWidth() / 2f, Gdx.graphics
-                .getHeight() / 2f - spaceshipSprite.getHeight() / 2f);
+        setPosition(Gdx.graphics.getWidth() / 2f - spaceshipSprite.getWidth() / 2f,
+                Gdx.graphics.getHeight() / 2f - spaceshipSprite.getHeight() / 2f);
         spaceshipSprite.setOrigin(spaceshipSprite.getWidth() / 2f, spaceshipSprite.getHeight() / 2f);
         health = 10;
         sound = Gdx.audio.newSound(Gdx.files.internal("ciu.mp3"));
@@ -125,10 +126,24 @@ public class PlayerSpaceship extends com.libgdx.project.actors.Spaceship {
         setPosition(getX() + accelY, getY() - accelX);
     }
 
+    private void shooting() {
+        for (int i = 0; i < getBullets().size(); i++) {
+            Bullet b = getBullets().get(i);
+            getStage().addActor(b);
+            if (b.getX() <= -50 || b.getX() >= Gdx.graphics.getWidth() + 50 || b.getY() <= -50 || b
+                    .getY() >= Gdx.graphics.getHeight() + 50) {
+                b.remove();
+            }
+        }
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         desktopMovement(Gdx.graphics.getDeltaTime());
         androidMovement();
+        setOrigin(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
+        Gdx.app.log("spaceship origin", String.valueOf(getY()));
+        shooting();
         spaceshipSprite.draw(batch, parentAlpha);
     }
 
