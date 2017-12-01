@@ -1,6 +1,7 @@
 package com.libgdx.project.actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -14,6 +15,7 @@ public abstract class Enemy extends Spaceship {
     PlayerSpaceship playerInstance;
     Vector2 moveVelocity;
     float distanceToPlayer;
+    Sound sound;
 
     public Enemy() {
         super();
@@ -22,6 +24,7 @@ public abstract class Enemy extends Spaceship {
         speed = 30f;
         moveVelocity = new Vector2();
         playerInstance = PlayerSpaceship.getInstance();
+        sound = Gdx.audio.newSound(Gdx.files.internal("pciou.mp3"));
     }
 
     Enemy(float positionX, float positionY) {
