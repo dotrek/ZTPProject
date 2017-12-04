@@ -44,7 +44,7 @@ public class PurpleEnemy extends Enemy {
         }
         if (timer >= frequency) {
             Vector2 playerPosition = PlayerSpaceship.getInstance().getPosition();
-            EnemyBullet bullet = new EnemyBullet(new Vector2(getX(), getY()), playerPosition);
+            EnemyBullet bullet = new EnemyBullet.Builder(new Vector2(getX(), getY()), playerPosition).speed(50f).build();
             sound.play();
             float rot = MathUtils.radiansToDegrees * MathUtils
                     .atan2(playerPosition.y - getY(), playerPosition.x - getX());
