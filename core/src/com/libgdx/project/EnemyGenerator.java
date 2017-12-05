@@ -48,37 +48,45 @@ public class EnemyGenerator extends Actor {
             spawnTimer = 0;
         } else spawnTimer += delta;
         if (difficultyTimer >= difficultyChangeTime) {
-            if (difficulty <= 4) {
+            if (difficulty < 4) {
                 difficulty++;
                 createWarningLabel(difficulty);
                 difficultyTimer = 0;
-            } else spawnFrequency -= delta;
+            }
+            //else spawnFrequency -= delta;
         } else difficultyTimer += delta;
     }
 
     private void createWarningLabel(int difficulty) {
-
+        Color color;
         switch (difficulty) {
             case 0:
                 label = new VisDialog("You want to play? Ok, lets do it!");
+                color = Color.ROYAL;
+                break;
             case 1:
                 label = new VisDialog("What about making it a little unexpected");
+                color = Color.GREEN;
                 break;
             case 2:
                 label = new VisDialog("FAAASTER!");
+                color = Color.RED;
                 break;
             case 3:
                 label = new VisDialog("You're shooting! It's unfair!");
+                color = Color.PURPLE;
                 break;
             case 4:
                 label = new VisDialog("Ok, lets make it BIGGER!");
+                color = Color.BLUE;
                 break;
             default:
                 label = new VisDialog("Nice one!");
+                color = Color.YELLOW;
         }
         label.show(getStage());
         label.getTitleLabel().addAction(
-                Actions.sequence(Actions.delay(0.5f), Actions.color(Color.LIME, 1f), Actions.rotateBy(180),
+                Actions.sequence(Actions.delay(0.5f), Actions.color(color, 1f), Actions.rotateBy(180),
                         Actions.removeActor(label)));
     }
 

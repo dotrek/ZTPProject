@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.libgdx.project.screen.GameScreen;
 
 /**
  * Created by dotre on 24.10.2017.
@@ -31,14 +29,11 @@ public abstract class Bullet extends Actor {
         bulletSprite.setOrigin(bulletSprite.getWidth() / 2f, bulletSprite.getHeight() / 2f);
         this.setPosition(sentLocation.x, sentLocation.y);
         target = new Vector2(destination.x, destination.y);
-
-//        bulletVelocity = new Vector2();
         damage = 2;
         setBulletDestination();
     }
 
     public void update(float delta) {
-        System.out.println(getWidth() + "\t" + getHeight());
         setPosition(getX() + velx * speed * delta, getY() + vely * speed * delta);
     }
 
