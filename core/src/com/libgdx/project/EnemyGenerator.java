@@ -53,6 +53,13 @@ public class EnemyGenerator extends Actor {
                 createWarningLabel(difficulty);
                 difficultyTimer = 0;
             } else if (spawnFrequency > 1) spawnFrequency -= delta;
+            else {
+                label = new VisDialog("DIEEEEEEE!!!!");
+                label.show(getStage());
+                label.getTitleLabel().addAction(
+                        Actions.sequence(Actions.delay(0.5f), Actions.color(Color.RED, 1f), Actions.rotateBy(180),
+                                Actions.removeActor(label)));
+            }
         } else difficultyTimer += delta;
     }
 
