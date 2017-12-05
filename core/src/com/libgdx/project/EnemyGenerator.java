@@ -2,6 +2,7 @@ package com.libgdx.project;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import com.libgdx.project.actors.*;
  */
 public class EnemyGenerator extends Actor {
 
-    private static final Map<EnemyType, Enemy> enemyMap = new EnumMap<EnemyType, Enemy>(EnemyType.class);
+    private static final Map<EnemyType, Texture> enemyTextureMap = new EnumMap<EnemyType, Texture>(EnemyType.class);
 
     private float spawnFrequency;
     private float difficultyChangeTime;
@@ -119,43 +120,40 @@ public class EnemyGenerator extends Actor {
         return enemy;
     }
 
-    private Enemy getEnemy(EnemyType type) {
-        if (!enemyMap.containsKey(type)) {
-            switch (type) {
-                case BIG_BLUE:
-                    enemyMap.put(type, new BigBlueEnemy());
-                    break;
-                case BLUE:
-                    enemyMap.put(type, new BlueEnemy());
-                    break;
-                case GREEN:
-                    enemyMap.put(type, new GreenEnemy());
-                    break;
-                case PURPLE:
-                    enemyMap.put(type, new PurpleEnemy());
-                    break;
-                case RED:
-                    enemyMap.put(type, new RedEnemy());
-                    break;
-            }
+    private Texture getTexture(EnemyType type) {
+        switch (type) {
+            case BIG_BLUE:
+                enemyTextureMap.put(type, new Texture(Gdx.files.internal("enemy.png")));
+                break;
+            case BLUE:
+                enemyTextureMap.put(type, new Texture(Gdx.files.internal("enemy.png")));
+                break;
+            case GREEN:
+                enemyTextureMap.put(type, new Texture(Gdx.files.internal("spaceshipgreen.png")));
+                break;
+            case PURPLE:
+                enemyTextureMap.put(type, new Texture(Gdx.files.internal("spaceshippurple.png")));
+                break;
+            case RED:
+                enemyTextureMap.put(type, new Texture(Gdx.files.internal("spaceshipred.png")));
+                break;
         }
-
-        return enemyMap.get(type);
+        return enemyTextureMap.get(type);
     }
 
     private Enemy getRandomEnemy(int x) {
         switch (x) {
             case 0:
-                return new BlueEnemy();
+                return new BlueEnemy(getTexture(EnemyType.BLUE));
             case 1:
-                return new GreenEnemy();
+                return new GreenEnemy(getTexture(EnemyType.GREEN));
             case 2:
-                return new RedEnemy();
+                return new RedEnemy(getTexture(EnemyType.RED));
             case 3:
-                return new PurpleEnemy();
+                return new PurpleEnemy(getTexture(EnemyType.PURPLE));
             case 4:
-                return new BigBlueEnemy();
+                return new BigBlueEnemy(getTexture(EnemyType.BIG_BLUE));
         }
-        return new BlueEnemy();
+        return new BlueEnemy(getTexture(EnemyType.BLUE));
     }
 }

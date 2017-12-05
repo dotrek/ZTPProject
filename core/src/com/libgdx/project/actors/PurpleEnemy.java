@@ -1,22 +1,17 @@
 package com.libgdx.project.actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by dotre on 23.11.2017.
  */
 public class PurpleEnemy extends Enemy {
-    Texture texture = new Texture(Gdx.files.internal("spaceshippurple.png"));
     private float timer;
     private static int frequency = 3;
 
-    public PurpleEnemy() {
+    public PurpleEnemy(Texture texture) {
         super();
         timer = 0;
         spaceshipSprite.setTexture(texture);
@@ -24,7 +19,6 @@ public class PurpleEnemy extends Enemy {
 
     @Override
     public void update(float delta) {
-//        System.out.println(playerInstance.getX() + "\t" + playerInstance.getY() + "\t \t " + getX() + "  " + getY());
         movement(delta);
         shooting(delta);
     }
