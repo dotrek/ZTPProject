@@ -5,18 +5,21 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.kotcrab.vis.ui.widget.VisDialog;
-import com.kotcrab.vis.ui.widget.VisLabel;
 import com.libgdx.project.actors.*;
 
 /**
  * Created by dotre on 17.11.2017.
  */
 public class EnemyGenerator extends Actor {
+
+    private static final Map<EnemyType, Enemy> enemyMap = new EnumMap<EnemyType, Enemy>(EnemyType.class);
 
     private float spawnFrequency;
     private float difficultyChangeTime;
@@ -27,7 +30,6 @@ public class EnemyGenerator extends Actor {
     private List<Enemy> enemies;
     private int difficulty;
 
-
     public EnemyGenerator(float frequency, ArrayList<Enemy> enemies) {
         this.spawnFrequency = frequency;
         this.enemies = enemies;
@@ -36,7 +38,6 @@ public class EnemyGenerator extends Actor {
         difficultyTimer = 0f;
         difficultyChangeTime = frequency * 3;
     }
-
 
     @Override
     public void act(float delta) {
@@ -116,6 +117,30 @@ public class EnemyGenerator extends Actor {
                 break;
         }
         return enemy;
+    }
+
+    private Enemy getEnemy(EnemyType type) {
+        if (!enemyMap.containsKey(type)) {
+            switch (type) {
+                case BIG_BLUE:
+                    enemyMap.put(type, new BigBlueEnemy());
+                    break;
+                case BLUE:
+                    enemyMap.put(type, new BlueEnemy());
+                    break;
+                case GREEN:
+                    enemyMap.put(type, new GreenEnemy());
+                    break;
+                case PURPLE:
+                    enemyMap.put(type, new PurpleEnemy());
+                    break;
+                case RED:
+                    enemyMap.put(type, new RedEnemy());
+                    break;
+            }
+        }
+
+        return enemyMap.get(type);
     }
 
     private Enemy getRandomEnemy(int x) {
