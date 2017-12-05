@@ -43,7 +43,6 @@ public class Spaceship extends Actor {
         healthBar.draw(batch, parentAlpha);
     }
 
-
     public ArrayList<Bullet> getBullets() {
         return bullets;
     }

@@ -14,9 +14,10 @@ public abstract class Bullet extends Actor {
 
     private Vector2 target;
     private static Texture bulletTexture = new Texture("bullet.png");
-    public Sprite bulletSprite;
+    Sprite bulletSprite;
     private int damage;
-    float velx, vely;
+    float velx;
+    float vely;
     float speed = 200f;
 
     public Bullet(Vector2 sentLocation, Vector2 destination) {
@@ -37,7 +38,6 @@ public abstract class Bullet extends Actor {
         setPosition(getX() + velx * speed * delta, getY() + vely * speed * delta);
     }
 
-
     private void setBulletDestination() {
         velx = target.x - getX();
         vely = target.y - getY();
@@ -47,7 +47,6 @@ public abstract class Bullet extends Actor {
             vely /= length;
         }
     }
-
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
