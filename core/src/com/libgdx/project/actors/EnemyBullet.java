@@ -7,7 +7,8 @@ import com.libgdx.project.screen.GameScreen;
  * Created by dotre on 30.11.2017.
  */
 public class EnemyBullet extends Bullet {
-    public EnemyBullet(Builder builder) {
+
+    private EnemyBullet(Builder builder) {
         super(builder.sentLocation, builder.destination);
         this.speed = builder.speed;
     }
