@@ -52,8 +52,7 @@ public class EnemyGenerator extends Actor {
                 difficulty++;
                 createWarningLabel(difficulty);
                 difficultyTimer = 0;
-            }
-            //else spawnFrequency -= delta;
+            } else if (spawnFrequency > 1) spawnFrequency -= delta;
         } else difficultyTimer += delta;
     }
 
