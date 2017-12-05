@@ -38,10 +38,7 @@ public abstract class Bullet extends Actor {
     }
 
     public void update(float delta) {
-//        bulletVelocity.set(target.x - getX(), target.y - getY()).nor().scl(Math.min(new Vector2
-//                (getX(), getY()).dst(target), speed));
-        System.out.println(bulletSprite.getBoundingRectangle().getWidth() + "\t" + bulletSprite.getBoundingRectangle()
-                                                                                               .getHeight());
+        System.out.println(getWidth() + "\t" + getHeight());
         setPosition(getX() + velx * speed * delta, getY() + vely * speed * delta);
     }
 

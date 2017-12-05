@@ -52,7 +52,7 @@ public class GameScreen implements Screen {
 
         playerSpaceship = PlayerSpaceship.getInstance();
         enemies = new ArrayList<Enemy>();
-        enemyGenerator = new EnemyGenerator(10, 5f, enemies);
+        enemyGenerator = new EnemyGenerator(5f, enemies);
         stage.addActor(playerSpaceship);
         stage.addActor(enemyGenerator);
         stage.addActor(scoreLabel);
@@ -83,7 +83,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         stage.getRoot().getColor().a = 0;
-        stage.getRoot().addAction(fadeIn(0.5f));
+        stage.getRoot().addAction(fadeIn(1.5f));
     }
 
     @Override
